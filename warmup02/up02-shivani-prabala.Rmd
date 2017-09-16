@@ -1,0 +1,81 @@
+---
+title: "warmup02"
+output: github_document
+---
+```{r}
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+load("/Users/shivaniprabala/Downloads/nba2017-salary-points.RData")
+```
+
+###Inspecting the objects in the .RData file: 
+```{r}
+#I have all the objects described in the data dictionary. 
+#The classes of the objects are as follows (object:class) : player:character, team:factor, position:character, experience:character, salary:numeric, points:integer, points1:integer, points2:integer, and points3:integer.
+#The only non-vector is team. The only factor is team. There are no lists.
+#Player, team, and position are categorical while experience, salary, points, points1, points2, and points3 are all quantitative variables.
+#All objects have the same length.
+```
+
+###Exploratory Data Analysis
+####Quantitative Variable
+```{r}
+summary(salary)
+mean(salary)
+sd(salary)
+min(salary)
+max(salary)
+median(salary)
+quantile(salary)
+#The typical values in this vector are integer values that represent the salaries of players in what looks like in millions of dollars. But in general the vectors with numeric/integer values contain numbers. 
+#The vector of salaries has a standard deviation of 6571890. 
+hist(salary)
+boxplot(salary)
+
+#DensityPlot
+d <- density(salary, )
+plot(d)
+polygon(d, col="red", border="blue")
+```
+
+### Analysis: 
+##### Let's look at the information we have gathered so far: 
+>* A quick summary of the salary vector tells us the following information (min, q1, med, mean, q3, max): `r summary(salary)`.
+> * The mean of the salary vector is $`r mean(salary)`.
+> * The minimum of salary is `r min(salary)` and the maximum of salary is `r max(salary)`. 
+>* The median or center is `r median(salary)`. 
+>* The quartiles are as follows: `r quantile(salary)`.
+>* Looking at the histogram plot, we see that the salary is a right skewed graph, meaning that most people are earning lower salaries as compared to the rest of the data. And that the frequency of higher salaries decreases as salary increases. The boxplot and desity plots reflect the same idea. Another thing to consider is that the standard deviation is quite high because of the few people who earn very large salaries. Their contributions skew this metric. Another notable number is the range, which is also quite large. The highest salary is `r max(salary)` while the lowest is `r min(salary)` making the range `r max(salary)- min(salary)`. The typical measurement is in dollars and the typical interval is about $5000000.  
+
+####Quantitative Variable
+```{r}
+table(team)
+prop.table(table(team))
+barplot(prop.table(table(team)))
+```
+ 
+### Analysis: 
+>***The numbers in the first table tell us the number of players on each team, and the relative proportions in the second table tells us the number of players on a particular team divided by the total number of players of all teams. So we can see from these numbers that most teams have either 14 or 15 players, and that teams who have 14 players have roughly 3.2% of total players and that teams who have 15 players have roughly 3.4% of total players.***
+
+### Reflection:
+>* Remembering how to write inline code was a little difficult even though we had seen it in class.
+>* Figuring out how to use the different mean, median, min, max, etc. functions was easy even though we hadn't see all of those functions in class. 
+>*I struggled with loading the data because I just copied and pasted the load path from the online Rmd file, but the load file required a full path according to where the file was stored on my computer specifically. 
+>* I am not fully understanding the concept of data frames. 
+>* The most time consuming part was writing inline code. 
+>* No, I did not. 
+>* Nope, everything was pretty easy to deal with. 
+
+###Experimenting with xtable: 
+,
+```{r}
+plot(points, salary, type= 'h', col="blue")
+```
