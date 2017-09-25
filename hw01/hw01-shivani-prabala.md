@@ -9,8 +9,8 @@ opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
 R Markdown
 ----------
 
-PART 1
-======
+PART1
+=====
 
 ``` r
 # load data file
@@ -59,8 +59,15 @@ plot(points, salary, pch = 16, col = color(10), xlab = "Points", ylab = "Salary(
 
 ![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
 
-PART 3
-======
+``` r
+# In this graph we can see that most players are concentrated in the area of
+# lower points and lower salaries with fewer and fewer players remaining as we
+# move across the x and y axes. There appears to be a positive association
+# between points and salary.
+```
+
+PART3
+=====
 
 ``` r
 # calculating linear correlation coefficients
@@ -152,7 +159,7 @@ text(2000, 25, "lowess", col = "darkcyan")
 text(2250, 15, "regression", col = 4)
 ```
 
-![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-11-1.png)
+![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-12-1.png)
 
 PART6
 =====
@@ -183,23 +190,26 @@ plot(new_experience, salary_inmillions, xlab = "Years of Experience", ylab = "Sa
 lines(lowess(new_experience, salary_inmillions), col = 3, lwd = 3)
 ```
 
-![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-13-1.png)
+![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-14-1.png)
 
 ``` r
 # This scatterplot graphs points against salary in millions of players in the
 # NBA. The lowess line is a local polynomial regression fitting displaying the
-# relation between the two variables. `
+# relation between the two variables. Most points appears to be condensed towards
+# the left end of both ranges, and there seems to be a positive association
+# between the two variables.
 
 # 3D Scatterplot
 scatterplot3d(points, new_experience, salary_inmillions, xlab = "points", ylab = "experience", 
     zlab = "salary", main = "3D Scatterplot", pch = 16, color = "coral1")
 ```
 
-![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-13-2.png)
+![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-14-2.png)
 
 ``` r
 # This plot allows us to view a three-dimensional graph of the variables points,
-# years of experience, and salary.
+# years of experience, and salary.The three variables appear to have a positive
+# association, and most points are condensed towards the bottom left.
 
 
 # Conditional boxplot of Salary in terms of position
@@ -209,14 +219,16 @@ boxplot(salary_inmillions[position == "C"], salary_inmillions[position == "PF"],
     xlab = "Position", ylab = "Salary(in millions)")
 ```
 
-![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-13-3.png)
+![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-14-3.png)
 
 ``` r
 # This boxplot allows us to view the relationship between points and salary
-# separated by the position of the player.
+# separated by the position of the player. The mean salary seems to be roughly
+# uniform at 5 million dollars, and there is more variation in salary amongst
+# centers and small forwards.
 
 # From observing the scatterplots, it is reasonable to say that as experience
-# increase salary tends to increase as the general pattern. One could stipulate
+# increases salary tends to increase as the general pattern. One could stipulate
 # that experience and salary are positively related.
 
 # From observng the boxplot, there does not seem to be a significant relation

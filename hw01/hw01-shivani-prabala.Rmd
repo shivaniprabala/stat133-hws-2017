@@ -13,7 +13,7 @@ opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
 ```
 ## R Markdown
 
-#PART 1
+#PART1
 ```{r}
 #load data file 
 setwd("/Users/shivaniprabala/Desktop")
@@ -49,8 +49,11 @@ color <- colorRampPalette(c("purple", "gray"))
 plot(points, salary, pch=16, col=color(10), xlab="Points", ylab="Salary(in millions)", main="Scatterplot of Points and Salary", cex=1, type='p')
 
 ```
+```{r}
+# In this graph we can see that most players are concentrated in the area of lower points and lower salaries with fewer and fewer players remaining as we move across the x and y axes. There appears to be a positive association between points and salary. 
+```
 
-#PART 3
+#PART3
 ```{r}
 #calculating linear correlation coefficients 
 n <- length(points)
@@ -125,20 +128,20 @@ R_squared <- 1 - (RSS/TSS)
 plot(new_experience, salary_inmillions, xlab="Years of Experience", ylab="Salary (in millions)", main= "Scatterplot with Lowess Smooth", pch=16, col='gray78')
 lines(lowess(new_experience, salary_inmillions), col=3, lwd=3)
 
-#This scatterplot graphs points against salary in millions of players in the NBA. The lowess line is a local polynomial regression fitting displaying the relation between the two variables. `
+#This scatterplot graphs points against salary in millions of players in the NBA. The lowess line is a local polynomial regression fitting displaying the relation between the two variables. Most points appears to be condensed towards the left end of both ranges, and there seems to be a positive association between the two variables.  
 
 #3D Scatterplot 
 scatterplot3d(points, new_experience, salary_inmillions, xlab='points', ylab= 'experience', zlab='salary', main= '3D Scatterplot', pch=16, color='coral1')
 
-#This plot allows us to view a three-dimensional graph of the variables points, years of experience, and salary.
+#This plot allows us to view a three-dimensional graph of the variables points, years of experience, and salary.The three variables appear to have a positive association, and most points are condensed towards the bottom left. 
 
 
 #Conditional boxplot of Salary in terms of position
 boxplot(salary_inmillions[position=='C'], salary_inmillions[position=='PF'], salary_inmillions[position=='PG'], salary_inmillions[position=='SF'], salary_inmillions[position=='SG'], names= c('center', 'point_fwd', 'point_guard', 'small_fwd', 'shoot_guard'), xlab='Position', ylab='Salary(in millions)')
 
-#This boxplot allows us to view the relationship between points and salary separated by the position of the player. 
+#This boxplot allows us to view the relationship between points and salary separated by the position of the player. The mean salary seems to be roughly uniform at 5 million dollars, and there is more variation in salary amongst centers and small forwards.
 
-#From observing the scatterplots, it is reasonable to say that as experience increase salary tends to increase as the general pattern. One could stipulate that experience and salary are positively related. 
+#From observing the scatterplots, it is reasonable to say that as experience increases salary tends to increase as the general pattern. One could stipulate that experience and salary are positively related. 
 
 #From observng the boxplot, there does not seem to be a significant relation between position and salary. The median of salaries seem to be roughly in the same location for all positions. Similarly, the spread between the differently players seems roughly the same. 
 ```
@@ -161,7 +164,7 @@ boxplot(salary_inmillions[position=='C'], salary_inmillions[position=='PF'], sal
 
 # I am not sure if we were supposed to create a function of the y_hat or to just apply the predictor formula to the given vector. I was a little unsure if we were supposed to for example in the points = 0, 100, 500, etc. question input those values into a function or just compute them using the parameters we calculated.
 
-#Scatterplot3d was the most frustrating thing. 
+#Scatterplot3d was the most frustrating thing.
 
 #I think figuring that bug out, and also seeing that I was able to generate the correct graphs was really encouraging. I had fun doing this homework. Thanks for designing it. :) 
 ```
