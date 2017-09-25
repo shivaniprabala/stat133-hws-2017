@@ -7,9 +7,13 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+```
 ## R Markdown
 
-#PART 1 
+#PART 1
 ```{r}
 #load data file 
 setwd("/Users/shivaniprabala/Desktop")
@@ -144,13 +148,21 @@ boxplot(salary_inmillions[position=='C'], salary_inmillions[position=='PF'], sal
 #Comments and Reflections 
 
 #Remembering syntax on splicing/creating vectors is still a little difficult even though I saw them in class. 
+
 #Figuring out the different plot parameters was easy(-ish) even though we didn't go into too much detail on those in class. 
+
 #Yes, this is the first time I have used git. It's pretty confusing to be honest, but hopefully I'll understand it better soon. 
+
 #I did need help on installing the scatterplot3d package but I was able to figure it out by myself eventually. 
-#I would say that this assignment took me roughly 4 hours to complete. 
+
+#I would say that this assignment took me roughly 4 hours to complete.
+
 #I had a bug where I could call scatterplot from the console and even run the chunk, but when I tried to knit the document it could not find scattplot. This took a while to fix, but hopefully next time I have a similar issue I can deal with it more quickly. 
-# I am not sure if we were supposed to create a function of the y_hat or to just apply the predictor formula to the given vector. I was a little unsure if we were supposed to for example in the points = 0, 100, 500, etc. question input those values into a function or just compute them using the parameters we calculated. 
+
+# I am not sure if we were supposed to create a function of the y_hat or to just apply the predictor formula to the given vector. I was a little unsure if we were supposed to for example in the points = 0, 100, 500, etc. question input those values into a function or just compute them using the parameters we calculated.
+
 #Scatterplot3d was the most frustrating thing. 
+
 #I think figuring that bug out, and also seeing that I was able to generate the correct graphs was really encouraging. I had fun doing this homework. Thanks for designing it. :) 
 ```
 
