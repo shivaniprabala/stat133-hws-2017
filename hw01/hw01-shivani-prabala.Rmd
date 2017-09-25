@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
-#PART 1
+#PART 1 
 ```{r}
 #load data file 
 setwd("/Users/shivaniprabala/Desktop")

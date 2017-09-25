@@ -179,15 +179,45 @@ lines(lowess(new_experience, salary_inmillions), col=3, lwd=3)
 ![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-12-1.png)
 
 ``` r
+#This scatterplot graphs points against salary in millions of players in the NBA. The lowess line is a local polynomial regression fitting displaying the relation between the two variables. `
+
 #3D Scatterplot 
-scatterplot3d(points, new_experience, salary_inmillions, xlab='points', ylab= 'salary', zlab='experience', main= '3D Scatterplot', pch=16, color='coral1')
+scatterplot3d(points, new_experience, salary_inmillions, xlab='points', ylab= 'experience', zlab='salary', main= '3D Scatterplot', pch=16, color='coral1')
 ```
 
 ![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-12-2.png)
 
 ``` r
+#This plot allows us to view a three-dimensional graph of the variables points, years of experience, and salary.
+
+
 #Conditional boxplot of Salary in terms of position
 boxplot(salary_inmillions[position=='C'], salary_inmillions[position=='PF'], salary_inmillions[position=='PG'], salary_inmillions[position=='SF'], salary_inmillions[position=='SG'], names= c('center', 'point_fwd', 'point_guard', 'small_fwd', 'shoot_guard'), xlab='Position', ylab='Salary(in millions)')
 ```
 
 ![](hw01-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-12-3.png)
+
+``` r
+#This boxplot allows us to view the relationship between points and salary separated by the position of the player. 
+
+#From observing the scatterplots, it is reasonable to say that as experience increase salary tends to increase as the general pattern. One could stipulate that experience and salary are positively related. 
+
+#From observng the boxplot, there does not seem to be a significant relation between position and salary. The median of salaries seem to be roughly in the same location for all positions. Similarly, the spread between the differently players seems roughly the same. 
+```
+
+PART8
+=====
+
+``` r
+#Comments and Reflections 
+
+#Remembering syntax on splicing/creating vectors is still a little difficult even though I saw them in class. 
+#Figuring out the different plot parameters was easy(-ish) even though we didn't go into too much detail on those in class. 
+#Yes, this is the first time I have used git. It's pretty confusing to be honest, but hopefully I'll understand it better soon. 
+#I did need help on installing the scatterplot3d package but I was able to figure it out by myself eventually. 
+#I would say that this assignment took me roughly 4 hours to complete. 
+#I had a bug where I could call scatterplot from the console and even run the chunk, but when I tried to knit the document it could not find scattplot. This took a while to fix, but hopefully next time I have a similar issue I can deal with it more quickly. 
+# I am not sure if we were supposed to create a function of the y_hat or to just apply the predictor formula to the given vector. I was a little unsure if we were supposed to for example in the points = 0, 100, 500, etc. question input those values into a function or just compute them using the parameters we calculated. 
+#Scatterplot3d was the most frustrating thing. 
+#I think figuring that bug out, and also seeing that I was able to generate the correct graphs was really encouraging. I had fun doing this homework. Thanks for designing it. :) 
+```
