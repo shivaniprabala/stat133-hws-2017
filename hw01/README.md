@@ -1,4 +1,7 @@
+output:gitub_document
+
 # HW01 - Summarizing Variables
+
 
 #References 
 https://stackoverflow.com/questions/33481271/how-to-wrap-code-and-the-output-in-markdown-rmd
