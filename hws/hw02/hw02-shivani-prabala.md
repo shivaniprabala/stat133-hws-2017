@@ -5,7 +5,7 @@ October 2nd, 2017
 
 ``` r
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff= 80),tidy=TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff= 100),tidy=TRUE)
 ```
 
 PART2
@@ -16,8 +16,8 @@ PART2
 github <- "https://github.com/ucb-stat133/stat133-fall-2017/raw/master/"
 file <- "data/nba2017-player-statistics.csv"
 csv <- paste0(github, file)
-data_frame_base <- read.csv(csv, colClasses = c("character", "character", "factor", 
-    "character", "double", rep("integer", 19)))
+data_frame_base <- read.csv(csv, colClasses = c("character", "character", "factor", "character", "double", 
+    rep("integer", 19)))
 str(data_frame_base)
 ```
 
@@ -50,11 +50,11 @@ str(data_frame_base)
 ``` r
 # importing use reader package
 library(readr)
-data_frame_readr <- read_csv(csv, col_types = list(col_character(), col_character(), 
-    col_factor(c("C", "PF", "PG", "SF", "SG")), col_character(), col_double(), col_integer(), 
-    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), 
-    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), 
-    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer()))
+data_frame_readr <- read_csv(csv, col_types = list(col_character(), col_character(), col_factor(c("C", 
+    "PF", "PG", "SF", "SG")), col_character(), col_double(), col_integer(), col_integer(), col_integer(), 
+    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), 
+    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), 
+    col_integer(), col_integer()))
 str(data_frame_readr)
 ```
 
@@ -206,16 +206,16 @@ data_frame_base <- mutate(data_frame_base, Missed_FG = data_frame_base$FGA - dat
 # Missed free throws = attempted free throws - free throws missed
 data_frame_base <- mutate(data_frame_base, Missed_FT = data_frame_base$FTA - data_frame_base$FTM)
 # Points total
-data_frame_base <- mutate(data_frame_base, PTS = (data_frame_base$Points3 * 3) + 
-    (data_frame_base$Points2 * 2) + data_frame_base$FTM)
+data_frame_base <- mutate(data_frame_base, PTS = (data_frame_base$Points3 * 3) + (data_frame_base$Points2 * 
+    2) + data_frame_base$FTM)
 # Total REB= offensive rebounds + defesive rebounds
 data_frame_base <- mutate(data_frame_base, REB = data_frame_base$OREB + data_frame_base$DREB)
 # Minutes per game = minutes played/ number of games played
 data_frame_base <- mutate(data_frame_base, MPG = data_frame_base$MIN/data_frame_base$GP)
 # Adding the EFF column
-data_frame_base <- mutate(data_frame_base, EFF = ((data_frame_base$PTS + data_frame_base$REB + 
-    data_frame_base$AST + data_frame_base$STL + data_frame_base$BLK - data_frame_base$Missed_FG - 
-    data_frame_base$Missed_FT - data_frame_base$TO)/data_frame_base$GP))
+data_frame_base <- mutate(data_frame_base, EFF = ((data_frame_base$PTS + data_frame_base$REB + data_frame_base$AST + 
+    data_frame_base$STL + data_frame_base$BLK - data_frame_base$Missed_FG - data_frame_base$Missed_FT - 
+    data_frame_base$TO)/data_frame_base$GP))
 # Summary statistics of EFF
 summary(data_frame_base$EFF)
 ```
@@ -231,8 +231,7 @@ hist(data_frame_base$EFF, xlab = "EFF", main = "History of Efficiency(EFF)", col
 ![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
 
 ``` r
-dftop10 <- slice(select(arrange(data_frame_base, desc(EFF)), Player, Team, Salary, 
-    EFF), 1:10)
+dftop10 <- slice(select(arrange(data_frame_base, desc(EFF)), Player, Team, Salary, EFF), 1:10)
 dftop10
 ```
 
@@ -257,8 +256,8 @@ data_frame_base$Player[data_frame_base$EFF < 0]
     ## [1] "Patricio Garino"
 
 ``` r
-# correlations between EFF and all variables used in EFF formula correlation
-# between EFF and Missed_FG
+# correlations between EFF and all variables used in EFF formula correlation between EFF and
+# Missed_FG
 Missed_FG <- -cor(data_frame_base$EFF, data_frame_base$Missed_FG)
 Missed_FG
 ```
@@ -328,8 +327,7 @@ numbers <- c(Missed_FG, Missed_FT, PTS, REB, AST, STL, BLK, TO)
 dfcor_dec <- data.frame(names, numbers)
 dfcor_dec <- arrange(dfcor_dec, desc(numbers))
 barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main = "Correlations between Player Stats and EFF", 
-    ylim = c(-1, 1), col = c("gray", "gray", "gray", "gray", "gray", "coral", "coral", 
-        "coral"), ylab = "EFF")
+    ylim = c(-1, 1), col = c("gray", "gray", "gray", "gray", "gray", "coral", "coral", "coral"), ylab = "EFF")
 abline(h = 0)
 ```
 
@@ -340,8 +338,7 @@ PART5
 
 ``` r
 # Scatterplot between Efficiency and Salary
-plot(data_frame_base$EFF, data_frame_base$Salary, xlab = "Efficiency", ylab = "Salary", 
-    main = "Scatterplot of Efficiency vs. Salary")
+plot(data_frame_base$EFF, data_frame_base$Salary, xlab = "Efficiency", ylab = "Salary", main = "Scatterplot of Efficiency vs. Salary")
 lines(lowess(data_frame_base$EFF, data_frame_base$Salary), col = 3, lwd = 3)
 ```
 
