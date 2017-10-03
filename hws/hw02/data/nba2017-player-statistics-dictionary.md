@@ -1,10 +1,8 @@
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 
 ### **Data Dictionary: NBA 2017 Player Statistics**
+
 ####About this Data: 
+
 #####This data includes information about statistics in the NBA such as salary, player names, age, experience, etc. This data has 441 rows, and 24 columns. The column labels are exactly those listed in the glossary in that order. The column names which are abbreviated include GP: Games Played during regular season, GS: Games Started, MIN: Minutes Played during regular season, FGM: Field Goals Made, FGA: Field Goals Attempted, Points3: 3-Point Field Goals, Points3_atts: 3-Point Field Goal Attempts, Points2: 2-Point Field Goals, Points2_atts: 2-Point Field Goal Attempts, FTM: Free Throws Made, FTA: Free Throw Attempts, OREB: Offensive Rebounds, DREB: Defensive Rebounds, AST: Assists, STL: Steals, BLK: Blocks, and TO: Turnovers. Experience is measured in years, Salary is measured in dollars, Rank is a numeric integer value, Age is measured in years, GP is measured as an integer value, GS is measured as an integer value, MIN is measured in minutes, and all other variables are measured as numeric integer values. It should be noted that any Points3, or Points2 variables are the number of 3-points/2 points, but the number of points is 3/2 times this number. The missing values are codified as the default R missing value of NA. 
 
 ### **References:** 
