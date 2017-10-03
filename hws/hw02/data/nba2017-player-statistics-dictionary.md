@@ -33,5 +33,4 @@
 * **AST**: Assists 
 * **STL**: Steals 
 * **BLK**: Blocks 
-* **TO**: Turnovers 
-
+* **TO**: Turnovers
