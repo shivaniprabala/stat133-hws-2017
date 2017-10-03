@@ -1,8 +1,4 @@
----
-title: "nba2017-player-statistics-dictionary"
-output: github_document 
-author: "Shivani Prabala"
----
+
 
 ### **Data Dictionary: NBA 2017 Player Statistics**
 ####About this Data: 
