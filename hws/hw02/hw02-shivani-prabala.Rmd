@@ -31,14 +31,10 @@ str(data_frame_readr)
 #PART3 
 ```{r}
 #Data processing on Experience 
-
 data_frame_base$Experience[data_frame_base$Experience=="R"] <- 0 #replacing all values of "R" with 0
 data_frame_base$Experience <- as.integer(data_frame_base$Experience) #converting Experience to integer 
+class(data_frame_base$Experience)
 str(data_frame_base)
-
-data_frame_readr$Experience[data_frame_readr$Experience=="R"] <- 0 
-data_frame_readr$Experience <- as.integer(data_frame_readr$Experience) 
-str(data_frame_readr)
 
 ```
 
@@ -60,7 +56,8 @@ data_frame_base <- mutate(data_frame_base, EFF= ((data_frame_base$PTS + data_fra
 #Summary statistics of EFF 
 summary(data_frame_base$EFF)
 #histogram for EFF 
-hist(data_frame_base$EFF, xlab = "EFF", main="History of Efficiency")
+hist(data_frame_base$EFF, xlab = "EFF", main="History of Efficiency(EFF)", col="grey")
+
 dftop10 <- slice(select(arrange(data_frame_base, desc(EFF)), Player, Team, Salary, EFF), 1:10)
 dftop10
 data_frame_base$Player[data_frame_base$EFF<0]
@@ -68,27 +65,36 @@ data_frame_base$Player[data_frame_base$EFF<0]
 #correlations between EFF and all variables used in EFF formula 
 #correlation between EFF and Missed_FG
 Missed_FG <- -cor(data_frame_base$EFF, data_frame_base$Missed_FG)
+Missed_FG
 #correlation between EFF and Missed_FT 
 Missed_FT <- -cor(data_frame_base$EFF, data_frame_base$Missed_FT)
+Missed_FT
 #correlation between EFF and PTS 
 PTS <- cor(data_frame_base$EFF, data_frame_base$PTS)
+PTS
 #correlation between EFF and REB
 REB <- cor(data_frame_base$EFF, data_frame_base$REB)
+REB
 #correlation between EFF and AST 
-AST <- cor(data_frame_base$EFF, data_frame_base$AST) 
+AST <- cor(data_frame_base$EFF, data_frame_base$AST)
+AST
 #correlation between EFF and STL 
-STL <- cor(data_frame_base$EFF, data_frame_base$STL) 
+STL <- cor(data_frame_base$EFF, data_frame_base$STL)
+STL
 #correlation between EFF and BLK 
 BLK <- cor(data_frame_base$EFF, data_frame_base$BLK)
+BLK
 #correlation between EFF and TO 
 TO <- -cor(data_frame_base$EFF, data_frame_base$TO)
+TO
 
 #Making a data frame and barplot with correlations 
 names <- c( "Missed_FG", "Missed_FT", "PTS", "REB", "AST", "STL", "BLK", "TO")
 numbers <- c(Missed_FG, Missed_FT, PTS, REB, AST, STL, BLK, TO)
 dfcor_dec <- data.frame(names, numbers)
 dfcor_dec <- arrange(dfcor_dec, desc(numbers))
-barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main="Correlations between Player Stats and EFF", ylim=c(-1.0, 1.0), col=c("gray", "gray", "gray", "gray", "gray", "red", "red", "red"))
+barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main="Correlations between Player Stats and EFF", ylim=c(-1.0, 1.0), col=c("gray", "gray", "gray", "gray", "gray", "coral", "coral", "coral"), ylab = "EFF")
+abline(h=0)
 
 ```
 
