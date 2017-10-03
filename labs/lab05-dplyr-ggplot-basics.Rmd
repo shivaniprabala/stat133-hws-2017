@@ -108,6 +108,10 @@ dat <- read.csv('nba2017-players.csv', stringsAsFactors = FALSE)
 dat <- read_csv('nba2017-players.csv')
 ```
 
+```{r}
+# with "base" read.csv()
+dat <- read.csv('nba2017-players.csv', stringsAsFactors = FALSE)
+```
 
 -----
 
@@ -176,6 +180,31 @@ of GSW point guards
 10 years of experience, making 10 million dollars or less.
 - find how to select the name, team, height, and weight, of rookie players, 
 20 years old, displaying only the first five occurrences (i.e. rows)
+
+##Your turn ANSWERS:
+```{r}
+library(dplyr)
+library(ggplot2)
+
+five_rows <- slice(dat, 1:5)
+five_rows 
+every_five <- slice(dat, seq(10, 50, 5))
+every_five
+last_five <- slice(dat, seq(437, 441))
+last_five
+shorter_than_70 <- filter(dat, height<70)
+shorter_than_70
+subset_GSWrows<- filter(dat, team== "GSW")
+subset_GSWrows
+Lakers_names <- select(filter(dat, team=="LAL"), player)
+Lakers_names 
+GSW_pointguards <- select(filter(dat, team=="GSW", position=="PG"), player, salary) 
+GSW_pointguards
+players_more10_less10 <- filter(dat, experience>10, salary<10000000)
+players_more10_less10
+rookie_20_fiverows <- slice(select(filter(dat, experience==0, age==20), player, team, height, weight), 1:5)
+rookie_20_fiverows
+```
 
 
 -----
@@ -260,6 +289,22 @@ with the log transformations of `height` and `weight`.
 - create a data frame `gsw_mpg` of GSW players, that contains variables for 
 player name, experience, and `min_per_game` (minutes per game), sorted by `min_per_game` (in descending order)
 
+#Your Turn ANSWERS: 
+```{r}
+gsw <- mutate(gsw, product= height * weight)
+gsw
+gsw3<- mutate(gsw, ht_log= log(height), wt_log=log(weight))
+gsw3
+gsw_heightless71 <- arrange(filter(dat, height<71), height)
+gsw_heightless71
+highestpaid_5 <- slice(select(arrange(dat, salary), player, team, salary), 437:441)
+highestpaid_5
+highestpaid_10 <- slice(select(arrange(dat, salary), player, team, points3), 432:441)
+highestpaid_10
+gsw_mpg <- select(filter(mutate(dat, min_per_game= minutes/games), team=='GSW'), player, experience, min_per_game)
+gsw_mpg 
+
+```
 
 -----
 
@@ -366,6 +411,15 @@ bottom-5 teams (worst 3pointer teams)
 
 - obtain the mean and standard deviation of `age`, for Power Forwards, with 5 
 and 10 years (including) years of experience.
+
+#Your turn ANSWERS: 
+```{r}
+summarize(dat, max= max(height))
+summarize(dat, sd= sd(points3)) 
+summarize(group_by(dat, team), med= median(points3))
+slice(arrange(summarize(group_by(dat, team), meanpoints3= mean(points3)), meanpoints3), 1:5)
+
+```
 
 -----
 

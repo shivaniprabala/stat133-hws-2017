@@ -124,6 +124,57 @@ Here's a table with the starting lineup of the Golden State Warriors:
 -   Find out how to use the *column binding* function `cbind()` to create a tabular object with the vectors created in step 1 (inspect what class of object is obtained with `cbind()`).
 -   How could you convert the object in the previous step into a data frame?
 
+``` r
+col1 <- c("Thompson", "Curry", "Green", "Durant", "Pachulia")
+col2 <- c("SG", "PG", "PF", "SF", "C")
+col3 <- c(16663575, 12112359, 15330435, 26540100, 2898000)
+col4 <- c(1742, 1999, 776, 1555, 426)
+col5 <- c(22.3, 25.3, 10.2, 25.1, 6.1)
+col6 <- c(FALSE, FALSE, FALSE, FALSE, FALSE)
+
+mytable_1 <- data.frame(col1=col1, col2=col2, col3=col3, col4=col4, col5=col5, col6=col6)
+class(mytable_1)
+```
+
+    ## [1] "data.frame"
+
+``` r
+is.list(mytable_1)
+```
+
+    ## [1] TRUE
+
+``` r
+mytable_2 <- data.frame(list(col1=col1, col2=col2, col3=col3, col4=col4, col5=col5, col6=col6))
+
+#In order to maintain the structures of player as a character, position as a factor, salary as numeric or real, points as integers, PPG as numeric or real, and Rookie as logical, I would set the stringsAsFactors parameter in data.fram to equal FALSE. Then I would apply as.factor to the position column, and as.integer to the points column. 
+
+mytable_3 <- data.frame(list(col1=col1, col2=as.factor(col2), col3=col3, col4=as.integer(col4), col5=col5, col6=col6), stringsAsFactors = FALSE)
+str(mytable_3)
+```
+
+    ## 'data.frame':    5 obs. of  6 variables:
+    ##  $ col1: chr  "Thompson" "Curry" "Green" "Durant" ...
+    ##  $ col2: Factor w/ 5 levels "C","PF","PG",..: 5 3 2 4 1
+    ##  $ col3: num  16663575 12112359 15330435 26540100 2898000
+    ##  $ col4: int  1742 1999 776 1555 426
+    ##  $ col5: num  22.3 25.3 10.2 25.1 6.1
+    ##  $ col6: logi  FALSE FALSE FALSE FALSE FALSE
+
+``` r
+table_cbind <- cbind(col1=col1, col2=col2, col3=col3, col4=col4, col5=col5, col6=col6)
+class(table_cbind)
+```
+
+    ## [1] "matrix"
+
+``` r
+table_dataf <- as.data.frame(table_cbind)
+class(table_dataf)
+```
+
+    ## [1] "data.frame"
+
 ------------------------------------------------------------------------
 
 Basic Operations with Data Frames
@@ -586,6 +637,320 @@ Use bracket notation, the dollar operator, as well as concepts of logical subset
 -   Display the player name, team, and salary, of the top 5 highest-paid players (hint: see `?sort` and `?order`)
 
 -   Display the player name, team, and points3, of the top 10 three-point players (hint: see `?sort` and `?order`)
+
+``` r
+dat[437:441, ] #last 5 rows of the data 
+```
+
+    ##              player team position height weight age experience
+    ## 437 Marquese Chriss  PHO       PF     82    233  19          0
+    ## 438    Ronnie Price  PHO       PG     74    190  33         11
+    ## 439     T.J. Warren  PHO       SF     80    230  23          2
+    ## 440      Tyler Ulis  PHO       PG     70    150  21          0
+    ## 441  Tyson Chandler  PHO        C     85    240  34         15
+    ##                             college   salary games minutes points points3
+    ## 437        University of Washington  2941440    82    1743    753      72
+    ## 438       Utah Valley State College   282595    14     134     14       3
+    ## 439 North Carolina State University  2128920    66    2048    951      26
+    ## 440          University of Kentucky   918369    61    1123    444      21
+    ## 441                                 12415000    47    1298    397       0
+    ##     points2 points1
+    ## 437     212     113
+    ## 438       1       3
+    ## 439     377     119
+    ## 440     163      55
+    ## 441     153      91
+
+``` r
+dat[dat$height< 70, ]
+```
+
+    ##           player team position height weight age experience
+    ## 6  Isaiah Thomas  BOS       PG     69    185  27          5
+    ## 24    Kay Felder  CLE       PG     69    176  21          0
+    ##                     college  salary games minutes points points3 points2
+    ## 6  University of Washington 6587132    76    2569   2199     245     437
+    ## 24       Oakland University  543471    42     386    166       7      55
+    ##    points1
+    ## 6      590
+    ## 24      35
+
+``` r
+cbind( dat[dat$position =='C', 1], dat[dat$position =='C', 9])
+```
+
+    ##       [,1]                   [,2]      
+    ##  [1,] "Al Horford"           "26540100"
+    ##  [2,] "Kelly Olynyk"         "3094014" 
+    ##  [3,] "Tyler Zeller"         "8e+06"   
+    ##  [4,] "Channing Frye"        "7806971" 
+    ##  [5,] "Edy Tavares"          "5145"    
+    ##  [6,] "Tristan Thompson"     "15330435"
+    ##  [7,] "Jakob Poeltl"         "2703960" 
+    ##  [8,] "Jonas Valanciunas"    "14382022"
+    ##  [9,] "Lucas Nogueira"       "1921320" 
+    ## [10,] "Daniel Ochefu"        "543471"  
+    ## [11,] "Ian Mahinmi"          "15944154"
+    ## [12,] "Jason Smith"          "5e+06"   
+    ## [13,] "Marcin Gortat"        "1.2e+07" 
+    ## [14,] "Dwight Howard"        "23180275"
+    ## [15,] "Mike Muscala"         "1015696" 
+    ## [16,] "Greg Monroe"          "17100000"
+    ## [17,] "John Henson"          "12517606"
+    ## [18,] "Thon Maker"           "2568600" 
+    ## [19,] "Al Jefferson"         "10230179"
+    ## [20,] "Myles Turner"         "2463840" 
+    ## [21,] "Cristiano Felicio"    "874636"  
+    ## [22,] "Joffrey Lauvergne"    "1709720" 
+    ## [23,] "Robin Lopez"          "13219250"
+    ## [24,] "Hassan Whiteside"     "22116750"
+    ## [25,] "Udonis Haslem"        "4e+06"   
+    ## [26,] "Willie Reed"          "1015696" 
+    ## [27,] "Andre Drummond"       "22116750"
+    ## [28,] "Aron Baynes"          "6500000" 
+    ## [29,] "Boban Marjanovic"     "7e+06"   
+    ## [30,] "Frank Kaminsky"       "2730000" 
+    ## [31,] "Miles Plumlee"        "12500000"
+    ## [32,] "Joakim Noah"          "1.7e+07" 
+    ## [33,] "Kyle O'Quinn"         "3900000" 
+    ## [34,] "Marshall Plumlee"     "543471"  
+    ## [35,] "Willy Hernangomez"    "1375000" 
+    ## [36,] "Bismack Biyombo"      "1.7e+07" 
+    ## [37,] "Nikola Vucevic"       "11750000"
+    ## [38,] "Stephen Zimmerman"    "950000"  
+    ## [39,] "Jahlil Okafor"        "4788840" 
+    ## [40,] "Joel Embiid"          "4826160" 
+    ## [41,] "Richaun Holmes"       "1025831" 
+    ## [42,] "Shawn Long"           "89513"   
+    ## [43,] "Tiago Splitter"       "8550000" 
+    ## [44,] "Brook Lopez"          "21165675"
+    ## [45,] "Justin Hamilton"      "3e+06"   
+    ## [46,] "Damian Jones"         "1171560" 
+    ## [47,] "David West"           "1551659" 
+    ## [48,] "JaVale McGee"         "1403611" 
+    ## [49,] "Kevon Looney"         "1182840" 
+    ## [50,] "Zaza Pachulia"        "2898000" 
+    ## [51,] "Dewayne Dedmon"       "2898000" 
+    ## [52,] "Joel Anthony"         "165952"  
+    ## [53,] "Pau Gasol"            "15500000"
+    ## [54,] "Chinanu Onuaku"       "543471"  
+    ## [55,] "Clint Capela"         "1296240" 
+    ## [56,] "Montrezl Harrell"     "1e+06"   
+    ## [57,] "DeAndre Jordan"       "21165675"
+    ## [58,] "Diamond Stone"        "543471"  
+    ## [59,] "Marreese Speights"    "1403611" 
+    ## [60,] "Jeff Withey"          "1015696" 
+    ## [61,] "Rudy Gobert"          "2121288" 
+    ## [62,] "Enes Kanter"          "17145838"
+    ## [63,] "Steven Adams"         "3140517" 
+    ## [64,] "Deyonta Davis"        "1369229" 
+    ## [65,] "Marc Gasol"           "21165675"
+    ## [66,] "Jusuf Nurkic"         "1921320" 
+    ## [67,] "Mason Plumlee"        "2328530" 
+    ## [68,] "Nikola Jokic"         "1358500" 
+    ## [69,] "Roy Hibbert"          "5e+06"   
+    ## [70,] "Alexis Ajinca"        "4600000" 
+    ## [71,] "Anthony Davis"        "22116750"
+    ## [72,] "DeMarcus Cousins"     "16957900"
+    ## [73,] "Omer Asik"            "9904494" 
+    ## [74,] "A.J. Hammons"         "650000"  
+    ## [75,] "Dwight Powell"        "8375000" 
+    ## [76,] "Nerlens Noel"         "4384490" 
+    ## [77,] "Salah Mejri"          "874636"  
+    ## [78,] "Georgios Papagiannis" "2202240" 
+    ## [79,] "Kosta Koufos"         "8046500" 
+    ## [80,] "Willie Cauley-Stein"  "3551160" 
+    ## [81,] "Cole Aldrich"         "7643979" 
+    ## [82,] "Jordan Hill"          "3911380" 
+    ## [83,] "Karl-Anthony Towns"   "5960160" 
+    ## [84,] "Ivica Zubac"          "1034956" 
+    ## [85,] "Tarik Black"          "6191000" 
+    ## [86,] "Timofey Mozgov"       "1.6e+07" 
+    ## [87,] "Alan Williams"        "874636"  
+    ## [88,] "Alex Len"             "4823621" 
+    ## [89,] "Tyson Chandler"       "12415000"
+
+``` r
+KD <- data.frame(c(dat[dat$player=='Kevin Durant', ]))
+ucla <- data.frame(c(dat[dat$college=="University of California, Los Angeles", ]))
+rookies <- data.frame(c(dat[dat$experience==0, ]))
+rookie_centers <- data.frame(c(rookies[rookies$position=='C', ]))
+top_players <- data.frame(c(dat[dat$games>50 & dat$minutes>100, ]))
+max(dat$height)
+```
+
+    ## [1] 87
+
+``` r
+min(dat$height) 
+```
+
+    ## [1] 69
+
+``` r
+mean(dat$height)
+```
+
+    ## [1] 79.1542
+
+``` r
+dat$player[dat$height==max(dat$height)]
+```
+
+    ## [1] "Edy Tavares"        "Boban Marjanovic"   "Kristaps Porzingis"
+
+``` r
+dat$player[dat$height==min(dat$height)]
+```
+
+    ## [1] "Isaiah Thomas" "Kay Felder"
+
+``` r
+unique_teams <- unique(c(dat[ , 'team']), incomparables=FALSE)
+length(unique_teams)
+```
+
+    ## [1] 30
+
+``` r
+dat$player[dat$age==max(dat$age)]
+```
+
+    ## [1] "Vince Carter"
+
+``` r
+median(dat$salary)
+```
+
+    ## [1] 3500000
+
+``` r
+median(dat[dat$experience>9, 'salary'])
+```
+
+    ## [1] 5644034
+
+``` r
+median(dat[dat$position=='SG'|dat$position=='PG', 'salary'])
+```
+
+    ## [1] 3230690
+
+``` r
+median(dat[dat$position=='PF'|dat$age>28|dat$height<75, 'salary']) 
+```
+
+    ## [1] 4276320
+
+``` r
+length(c(dat[dat$points<5, 'player']))
+```
+
+    ## [1] 7
+
+``` r
+dat[dat$points<5, 'player']
+```
+
+    ## [1] "Chris McCullough" "Michael Gbinije"  "Patricio Garino" 
+    ## [4] "Isaiah Taylor"    "Brice Johnson"    "Roy Hibbert"     
+    ## [7] "Elijah Millsap"
+
+``` r
+dat[dat$points==0, 'player']
+```
+
+    ## [1] "Patricio Garino"
+
+``` r
+length(c(dat[dat$college=="University of California, Berkeley", 'player']))
+```
+
+    ## [1] 0
+
+``` r
+#Are there players from University of Notre Dame?  
+length(c(dat[dat$college=="University of Notre Dame",'player'])) >0
+```
+
+    ## [1] TRUE
+
+``` r
+length(dat[dat$college=="University of Notre Dame",'player']) 
+```
+
+    ## [1] 3
+
+``` r
+dat[dat$college=="University of Notre Dame",'player']
+```
+
+    ## [1] "Demetrius Jackson" "Jerian Grant"      "Pat Connaughton"
+
+``` r
+#Are there players with weight greater than 260 pounts? 
+length(dat[dat$weight>260, 'player']) > 0 
+```
+
+    ## [1] TRUE
+
+``` r
+length(dat[dat$weight>260, 'player'])
+```
+
+    ## [1] 21
+
+``` r
+dat[dat$weight>260, 'player']
+```
+
+    ##  [1] "Jonas Valanciunas" "Dwight Howard"     "Greg Monroe"      
+    ##  [4] "Al Jefferson"      "Kevin Seraphin"    "Cristiano Felicio"
+    ##  [7] "Hassan Whiteside"  "Andre Drummond"    "Boban Marjanovic" 
+    ## [10] "Jahlil Okafor"     "Brook Lopez"       "JaVale McGee"     
+    ## [13] "Zaza Pachulia"     "DeAndre Jordan"    "Derrick Favors"   
+    ## [16] "Jusuf Nurkic"      "Roy Hibbert"       "DeMarcus Cousins" 
+    ## [19] "Kosta Koufos"      "Ivica Zubac"       "Timofey Mozgov"
+
+``` r
+length(dat[dat$college == "", 'player'])
+```
+
+    ## [1] 85
+
+``` r
+dat$ptspermin <- c(dat$points/dat$minutes)
+dat[dat$ptspermin==max(dat$ptspermin), 'player']
+```
+
+    ## [1] "Russell Westbrook"
+
+``` r
+dat$threeptspermin <- c(dat$points3/dat$minutes)
+dat[dat$threeptspermin==max(dat$threeptspermin), 'player']
+```
+
+    ## [1] "Stephen Curry"
+
+``` r
+dat$twoptspermin <- c(dat$points2/dat$minutes)
+dat[dat$twoptspermin==max(dat$twoptspermin), 'player']
+```
+
+    ## [1] "JaVale McGee"
+
+``` r
+dat$oneptspermin <- c(dat$points1/dat$minutes)
+dat[dat$oneptspermin==max(dat$oneptspermin), 'player']
+```
+
+    ## [1] "Russell Westbrook"
+
+``` r
+GSW_table <- data.frame(cbind(dat[dat$team=="GSW",'player'],dat[dat$team=="GSW", 'height'], dat[dat$team=="GSW", 'weight']))
+GSW_table_byheight <- transform(GSW_table, X2= sort(X2, decreasing=FALSE))
+GSW_table_byweight <- transform(GSW_table, X3= sort(X3, decreasing=TRUE))
+```
 
 Group By
 --------

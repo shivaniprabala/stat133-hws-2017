@@ -75,6 +75,11 @@ dat <- read.csv('nba2017-players.csv', stringsAsFactors = FALSE)
 dat <- read_csv('nba2017-players.csv')
 ```
 
+``` r
+# with "base" read.csv()
+dat <- read.csv('nba2017-players.csv', stringsAsFactors = FALSE)
+```
+
 ------------------------------------------------------------------------
 
 Basic `"dplyr"` verbs
@@ -109,18 +114,15 @@ three_rows <- slice(dat, 1:3)
 three_rows
 ```
 
-    ##          player team position height weight age experience
-    ## 1    Al Horford  BOS        C     82    245  30          9
-    ## 2  Amir Johnson  BOS       PF     81    240  29         11
-    ## 3 Avery Bradley  BOS       SG     74    180  26          6
-    ##                         college   salary games minutes points points3
-    ## 1         University of Florida 26540100    68    2193    952      86
-    ## 2                               12000000    80    1608    520      27
-    ## 3 University of Texas at Austin  8269663    55    1835    894     108
-    ##   points2 points1
-    ## 1     293     108
-    ## 2     186      67
-    ## 3     251      68
+    ## # A tibble: 3 x 15
+    ##          player  team position height weight   age experience
+    ##           <chr> <chr>    <chr>  <int>  <int> <int>      <int>
+    ## 1    Al Horford   BOS        C     82    245    30          9
+    ## 2  Amir Johnson   BOS       PF     81    240    29         11
+    ## 3 Avery Bradley   BOS       SG     74    180    26          6
+    ## # ... with 8 more variables: college <chr>, salary <dbl>, games <int>,
+    ## #   minutes <int>, points <int>, points3 <int>, points2 <int>,
+    ## #   points1 <int>
 
 `filter()` allows you to select rows by condition:
 
@@ -170,6 +172,9 @@ player_height <- select(dat, player, height)
 -   find how to select the name, age, and team, of players with more than 10 years of experience, making 10 million dollars or less.
 -   find how to select the name, team, height, and weight, of rookie players, 20 years old, displaying only the first five occurrences (i.e. rows)
 
+Your Turn ANSWERS
+-----------------
+
 ------------------------------------------------------------------------
 
 Adding new variables: `mutate()`
@@ -185,7 +190,9 @@ gsw <- slice(gsw, c(4, 8, 10, 14, 15))
 gsw
 ```
 
+    ## # A tibble: 5 x 3
     ##           player height weight
+    ##            <chr>  <int>  <int>
     ## 1 Draymond Green     79    230
     ## 2   Kevin Durant     81    240
     ## 3  Klay Thompson     79    215
@@ -198,12 +205,14 @@ Now, let's use `mutate()` to (temporarily) add a column with the ratio `height /
 mutate(gsw, height / weight)
 ```
 
-    ##           player height weight height/weight
-    ## 1 Draymond Green     79    230     0.3434783
-    ## 2   Kevin Durant     81    240     0.3375000
-    ## 3  Klay Thompson     79    215     0.3674419
-    ## 4  Stephen Curry     75    190     0.3947368
-    ## 5  Zaza Pachulia     83    270     0.3074074
+    ## # A tibble: 5 x 4
+    ##           player height weight `height/weight`
+    ##            <chr>  <int>  <int>           <dbl>
+    ## 1 Draymond Green     79    230       0.3434783
+    ## 2   Kevin Durant     81    240       0.3375000
+    ## 3  Klay Thompson     79    215       0.3674419
+    ## 4  Stephen Curry     75    190       0.3947368
+    ## 5  Zaza Pachulia     83    270       0.3074074
 
 You can also give a new name, like: `ht_wt = height / weight`:
 
@@ -211,7 +220,9 @@ You can also give a new name, like: `ht_wt = height / weight`:
 mutate(gsw, ht_wt = height / weight)
 ```
 
+    ## # A tibble: 5 x 4
     ##           player height weight     ht_wt
+    ##            <chr>  <int>  <int>     <dbl>
     ## 1 Draymond Green     79    230 0.3434783
     ## 2   Kevin Durant     81    240 0.3375000
     ## 3  Klay Thompson     79    215 0.3674419
@@ -225,7 +236,9 @@ gsw2 <- mutate(gsw, ht_m = height * 0.0254, wt_kg = weight * 0.4536)
 gsw2
 ```
 
+    ## # A tibble: 5 x 5
     ##           player height weight   ht_m   wt_kg
+    ##            <chr>  <int>  <int>  <dbl>   <dbl>
     ## 1 Draymond Green     79    230 2.0066 104.328
     ## 2   Kevin Durant     81    240 2.0574 108.864
     ## 3  Klay Thompson     79    215 2.0066  97.524
@@ -242,7 +255,9 @@ The next basic verb of `"dplyr"` is `arrange()` which allows you to reorder rows
 arrange(gsw, height)
 ```
 
+    ## # A tibble: 5 x 3
     ##           player height weight
+    ##            <chr>  <int>  <int>
     ## 1  Stephen Curry     75    190
     ## 2 Draymond Green     79    230
     ## 3  Klay Thompson     79    215
@@ -256,7 +271,9 @@ By default `arrange()` sorts rows in increasing. To arrande rows in descending o
 arrange(gsw, desc(height))
 ```
 
+    ## # A tibble: 5 x 3
     ##           player height weight
+    ##            <chr>  <int>  <int>
     ## 1  Zaza Pachulia     83    270
     ## 2   Kevin Durant     81    240
     ## 3 Draymond Green     79    230
@@ -268,7 +285,9 @@ arrange(gsw, desc(height))
 arrange(gsw, height, weight)
 ```
 
+    ## # A tibble: 5 x 3
     ##           player height weight
+    ##            <chr>  <int>  <int>
     ## 1  Stephen Curry     75    190
     ## 2  Klay Thompson     79    215
     ## 3 Draymond Green     79    230
@@ -362,18 +381,18 @@ summarise(
 )
 ```
 
-    ## # A tibble: 30 × 2
+    ## # A tibble: 30 x 2
     ##     team avg_salary
     ##    <chr>      <dbl>
-    ## 1    ATL    6491892
-    ## 2    BOS    6127673
-    ## 3    BRK    4363414
-    ## 4    CHI    6138459
-    ## 5    CHO    6683086
-    ## 6    CLE    8386014
-    ## 7    DAL    6139880
-    ## 8    DEN    5225533
-    ## 9    DET    6871594
+    ##  1   ATL    6491892
+    ##  2   BOS    6127673
+    ##  3   BRK    4363414
+    ##  4   CHI    6138459
+    ##  5   CHO    6683086
+    ##  6   CLE    8386014
+    ##  7   DAL    6139880
+    ##  8   DEN    5225533
+    ##  9   DET    6871594
     ## 10   GSW    6579394
     ## # ... with 20 more rows
 
@@ -387,7 +406,7 @@ summarise(
 )
 ```
 
-    ## # A tibble: 5 × 2
+    ## # A tibble: 5 x 2
     ##   position avg_salary
     ##      <chr>      <dbl>
     ## 1        C    6987682
@@ -408,7 +427,7 @@ arrange(
 )
 ```
 
-    ## # A tibble: 5 × 3
+    ## # A tibble: 5 x 3
     ##   position avg_height avg_weight
     ##      <chr>      <dbl>      <dbl>
     ## 1        C   83.25843   250.7978
@@ -453,7 +472,7 @@ ggplot(data = dat) +
   geom_point(aes(x = points, y = salary))
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png)
 
 -   `ggplot()` creates an object of class `"ggplot"`
 -   the main input for `ggplot()` is `data` which must be a data frame
@@ -477,7 +496,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_point(aes(color = position))
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github/unnamed-chunk-21-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png)
 
 Maybe you wan to modify the size of the dots in terms of `points3`:
 
@@ -487,7 +506,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_point(aes(color = position, size = points3))
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github/unnamed-chunk-22-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
 
 To add some transparency effect to the dots, you can use the `alpha` parameter
 
@@ -497,7 +516,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_point(aes(color = position, size = points3), alpha = 0.7)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-25-1.png)
 
 Notice that `alpha` was specified outside `aes()`. This is because we are not using any column for the `alpha` transparency values.
 
@@ -527,7 +546,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   facet_wrap(~ position)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
 
 The other faceting function is `facet_grid()`, which allows you to control the layout of the facets (by rows, by columns, etc)
 
@@ -539,7 +558,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_smooth(method = loess)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
 
 ``` r
 # scatterplot by position
@@ -549,7 +568,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_smooth(method = loess)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github/unnamed-chunk-25-2.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-2.png)
 
 ### Your turn:
 
