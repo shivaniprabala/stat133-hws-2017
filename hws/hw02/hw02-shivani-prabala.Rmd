@@ -48,7 +48,7 @@ str(data_frame_base)
 library(dplyr)
 #Missed field goals = attempted field goals - successful field goals 
 data_frame_base <- mutate(data_frame_base, Missed_FG= data_frame_base$FGA - data_frame_base$FGM)
-#Missed free throws = attempted free throws - free throws missed 
+#Missed free throws = attempted free throws - free throws made
 data_frame_base <- mutate(data_frame_base, Missed_FT= data_frame_base$FTA- data_frame_base$FTM)
 #Points total 
 data_frame_base <- mutate(data_frame_base, PTS= (data_frame_base$Points3 * 3) + (data_frame_base$Points2 *2) + data_frame_base$FTM)
@@ -98,7 +98,7 @@ names <- c( "Missed_FG", "Missed_FT", "PTS", "REB", "AST", "STL", "BLK", "TO")
 numbers <- c(Missed_FG, Missed_FT, PTS, REB, AST, STL, BLK, TO)
 dfcor_dec <- data.frame(names, numbers)
 dfcor_dec <- arrange(dfcor_dec, desc(numbers))
-barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main="Correlations between Player Stats and EFF", ylim=c(-1.0, 1.0), col=c("gray", "gray", "gray", "gray", "gray", "coral", "coral", "coral"), ylab = "EFF")
+barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main="Correlations between Player Stats and EFF", ylim=c(-1.0, 1.0), col=c("gray", "gray", "gray", "gray", "gray", "coral", "coral", "coral"), ylab = "EFF", border="white")
 abline(h=0)
 
 ```
@@ -115,7 +115,7 @@ saleffcorr
 ######Based on the positive association viewed on the scatterplot and the linear correlation coefficient of `r saleffcorr`, I would say that Efficiency and Salary have a moderate to strong positive relationship to one another. 
 
 ```{r}
-MPG_morethan20players <- data_frame_base[data_frame_base$MPG>19, ]
+MPG_morethan20players <- data_frame_base[data_frame_base$MPG>=20, ]
 players2 <- data.frame(MPG_morethan20players)
 plot(players2$EFF, players2$Salary, main= "Efficiency vs Salary for players with 20 or more minutes of Game Time", xlab="Efficiency", ylab="Salary")
 lines(lowess(players2$EFF, players2$Salary), col=3, lwd=3)

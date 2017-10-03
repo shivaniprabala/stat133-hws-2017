@@ -203,7 +203,7 @@ library(dplyr)
 ``` r
 # Missed field goals = attempted field goals - successful field goals
 data_frame_base <- mutate(data_frame_base, Missed_FG = data_frame_base$FGA - data_frame_base$FGM)
-# Missed free throws = attempted free throws - free throws missed
+# Missed free throws = attempted free throws - free throws made
 data_frame_base <- mutate(data_frame_base, Missed_FT = data_frame_base$FTA - data_frame_base$FTM)
 # Points total
 data_frame_base <- mutate(data_frame_base, PTS = (data_frame_base$Points3 * 3) + 
@@ -329,7 +329,7 @@ dfcor_dec <- data.frame(names, numbers)
 dfcor_dec <- arrange(dfcor_dec, desc(numbers))
 barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main = "Correlations between Player Stats and EFF", 
     ylim = c(-1, 1), col = c("gray", "gray", "gray", "gray", "gray", "coral", "coral", 
-        "coral"), ylab = "EFF")
+        "coral"), ylab = "EFF", border = "white")
 abline(h = 0)
 ```
 
@@ -357,7 +357,7 @@ saleffcorr
 ###### Based on the positive association viewed on the scatterplot and the linear correlation coefficient of 0.655624, I would say that Efficiency and Salary have a moderate to strong positive relationship to one another.
 
 ``` r
-MPG_morethan20players <- data_frame_base[data_frame_base$MPG > 19, ]
+MPG_morethan20players <- data_frame_base[data_frame_base$MPG >= 20, ]
 players2 <- data.frame(MPG_morethan20players)
 plot(players2$EFF, players2$Salary, main = "Efficiency vs Salary for players with 20 or more minutes of Game Time", 
     xlab = "Efficiency", ylab = "Salary")
@@ -371,9 +371,9 @@ cor_morethan20 <- cor(players2$EFF, players2$Salary)
 cor_morethan20
 ```
 
-    ## [1] 0.5355386
+    ## [1] 0.5367224
 
-###### Based on the positive association viewed on the scatterplot and the linear correlation coefficient of 0.5355386, I would say that Efficiency and Salary have a moderate positive relationship to one another. This correlation coefficient is less than the coefficient using all player data, which suggests that for more experienced players the positive association between Efficiency and Salary is less strong. This could be for a number of reasons such as loyalty to the team having a higher precedence than efficiency or fan's pressure for a team to keep a certain player.
+###### Based on the positive association viewed on the scatterplot and the linear correlation coefficient of 0.5367224, I would say that Efficiency and Salary have a moderate positive relationship to one another. This correlation coefficient is less than the coefficient using all player data, which suggests that for more experienced players the positive association between Efficiency and Salary is less strong. This could be for a number of reasons such as loyalty to the team having a higher precedence than efficiency or fan's pressure for a team to keep a certain player.
 
 PART6
 =====
