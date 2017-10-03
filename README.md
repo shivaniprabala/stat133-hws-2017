@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## stat133-fall-2017
 
 This repository holds the course materials for the fall 2017 edition of 
@@ -148,3 +149,87 @@ every semester.
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Unless otherwise noticed, this work, by Gaston Sanchez, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 
 Author: [Gaston Sanchez](http://gastonsanchez.com)
+=======
+# Stat 133, Fall 2017
+
+Repository for HW assignments of Stat 133 (Fall 2017)
+
+- Student name: Shivani Prabala
+- Github username: shivaniprabala
+- Lab section: 109
+- GSI: Minchul Shin
+
+-----
+
+## Get your own repository
+
+Get your own copy (clone) of this repository. This means that you will have 
+to `git clone` the repository. Do NOT confuse _cloning_ with _forking_ 
+(please do NOT fork this repo).
+
+- In your computer, open the command line.
+- Optional: move to the directory where you will clone this repository.
+- Run the following command (this will clone the repo to your working directory):
+
+```bash
+git clone https://github.com/ucb-stat133/stat133-fall-2017.git
+```
+
+- Customize the `README.md` file with your Name, github username, lab section, and GSI name.
+- Add the changes to your local repo:
+```bash
+git add README.md
+```
+- Commit the changes:
+```bash
+git commit -m "readme: customize readme file"
+```
+- Push to github:
+```bash
+git push origin master
+```
+
+-----
+
+## Working on a HW assignment
+
+- You should organize most HW assignments with the following file structure:
+
+```
+hw04/
+  data/
+  code/
+  report/
+  README.md
+```
+
+- Use the directory `data/` to put the data file(s)
+- Use the directory `code/` to put all your `.R` files (e.g. scripts, functions, tests)
+- Use the directory `report/` to put your `.Rmd` file (or slides)
+- Make sure the `README.md` file contains:
+	+ Title of the HW assignment
+	+ Brief description
+	+ Special instructions for any user (if necessary)
+	+ Special instructions for graders (if necessary)
+	+ Links to any resources that you used to complete the HW
+	+ List of references that you used to complete the HW
+- Some assignments may need more directories: e.g. `app/`, `images/`
+
+
+As soon as you start working on a HW:
+
+- Keep track of changes with Git
+- Commit changes
+- Push commits to your github repository
+- Don't wait till the last day/hours/minutes to push to Github
+
+-----
+
+## Submitting your work
+
+You should submit the repository link of each HW to bCourses, providing the commit number that corresponds to the closest time-stamp before the due date.
+
+You can keep working on a HW once its due date has passed. However, we won't grade anything after the due date. Why bother? Because it is good professional practice. And it will help you have a nice portfolio for the course that you could show to the rest of the world (don't underestimate this).
+
+
+>>>>>>> baca4d2947fb557589287a9b9178fa505947f9c5
