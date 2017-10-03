@@ -1,18 +1,23 @@
 HW 02- Basics of Data Frames
 ================
+Shivani Prabala
+October 2nd, 2017
 
-R Markdown
-----------
+``` r
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff= 80),tidy=TRUE)
+```
 
 PART2
 =====
 
 ``` r
-#importing use R base functions
+# importing use R base functions
 github <- "https://github.com/ucb-stat133/stat133-fall-2017/raw/master/"
 file <- "data/nba2017-player-statistics.csv"
 csv <- paste0(github, file)
-data_frame_base <- read.csv(csv, colClasses= c("character", "character", "factor", "character", "double",rep("integer", 19))) 
+data_frame_base <- read.csv(csv, colClasses = c("character", "character", "factor", 
+    "character", "double", rep("integer", 19)))
 str(data_frame_base)
 ```
 
@@ -43,9 +48,13 @@ str(data_frame_base)
     ##  $ TO          : int  116 77 88 0 25 210 79 4 68 39 ...
 
 ``` r
-#importing use reader package 
+# importing use reader package
 library(readr)
-data_frame_readr <- read_csv(csv, col_types= list(col_character(),col_character(), col_factor(c("C", "PF", "PG", "SF", "SG")), col_character(), col_double(),col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer()))
+data_frame_readr <- read_csv(csv, col_types = list(col_character(), col_character(), 
+    col_factor(c("C", "PF", "PG", "SF", "SG")), col_character(), col_double(), col_integer(), 
+    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), 
+    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), 
+    col_integer(), col_integer(), col_integer(), col_integer(), col_integer(), col_integer()))
 str(data_frame_readr)
 ```
 
@@ -135,9 +144,9 @@ PART3
 =====
 
 ``` r
-#Data processing on Experience 
-data_frame_base$Experience[data_frame_base$Experience=="R"] <- 0 #replacing all values of "R" with 0
-data_frame_base$Experience <- as.integer(data_frame_base$Experience) #converting Experience to integer 
+# Data processing on Experience
+data_frame_base$Experience[data_frame_base$Experience == "R"] <- 0  #replacing all values of 'R' with 0
+data_frame_base$Experience <- as.integer(data_frame_base$Experience)  #converting Experience to integer 
 class(data_frame_base$Experience)
 ```
 
@@ -192,19 +201,22 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
-#Missed field goals = attempted field goals - successful field goals 
-data_frame_base <- mutate(data_frame_base, Missed_FG= data_frame_base$FGA - data_frame_base$FGM)
-#Missed free throws = attempted free throws - free throws missed 
-data_frame_base <- mutate(data_frame_base, Missed_FT= data_frame_base$FTA- data_frame_base$FTM)
-#Points total 
-data_frame_base <- mutate(data_frame_base, PTS= (data_frame_base$Points3 * 3) + (data_frame_base$Points2 *2) + data_frame_base$FTM)
-# Total REB= offensive rebounds + defesive rebounds 
-data_frame_base <- mutate(data_frame_base, REB= data_frame_base$OREB + data_frame_base$DREB)
-#Minutes per game = minutes played/ number of games played 
-data_frame_base <- mutate(data_frame_base, MPG= data_frame_base$MIN/data_frame_base$GP)
-#Adding the EFF column
-data_frame_base <- mutate(data_frame_base, EFF= ((data_frame_base$PTS + data_frame_base$REB + data_frame_base$AST + data_frame_base$STL + data_frame_base$BLK - data_frame_base$Missed_FG - data_frame_base$Missed_FT - data_frame_base$TO)/data_frame_base$GP))
-#Summary statistics of EFF 
+# Missed field goals = attempted field goals - successful field goals
+data_frame_base <- mutate(data_frame_base, Missed_FG = data_frame_base$FGA - data_frame_base$FGM)
+# Missed free throws = attempted free throws - free throws missed
+data_frame_base <- mutate(data_frame_base, Missed_FT = data_frame_base$FTA - data_frame_base$FTM)
+# Points total
+data_frame_base <- mutate(data_frame_base, PTS = (data_frame_base$Points3 * 3) + 
+    (data_frame_base$Points2 * 2) + data_frame_base$FTM)
+# Total REB= offensive rebounds + defesive rebounds
+data_frame_base <- mutate(data_frame_base, REB = data_frame_base$OREB + data_frame_base$DREB)
+# Minutes per game = minutes played/ number of games played
+data_frame_base <- mutate(data_frame_base, MPG = data_frame_base$MIN/data_frame_base$GP)
+# Adding the EFF column
+data_frame_base <- mutate(data_frame_base, EFF = ((data_frame_base$PTS + data_frame_base$REB + 
+    data_frame_base$AST + data_frame_base$STL + data_frame_base$BLK - data_frame_base$Missed_FG - 
+    data_frame_base$Missed_FT - data_frame_base$TO)/data_frame_base$GP))
+# Summary statistics of EFF
 summary(data_frame_base$EFF)
 ```
 
@@ -212,14 +224,15 @@ summary(data_frame_base$EFF)
     ##  -0.600   5.452   9.090  10.140  13.250  33.840
 
 ``` r
-#histogram for EFF 
-hist(data_frame_base$EFF, xlab = "EFF", main="History of Efficiency(EFF)", col="grey")
+# histogram for EFF
+hist(data_frame_base$EFF, xlab = "EFF", main = "History of Efficiency(EFF)", col = "grey")
 ```
 
-![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
+![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
 
 ``` r
-dftop10 <- slice(select(arrange(data_frame_base, desc(EFF)), Player, Team, Salary, EFF), 1:10)
+dftop10 <- slice(select(arrange(data_frame_base, desc(EFF)), Player, Team, Salary, 
+    EFF), 1:10)
 dftop10
 ```
 
@@ -238,14 +251,14 @@ dftop10
     ## 10      Hassan Whiteside   MIA 22116750 25.36364
 
 ``` r
-data_frame_base$Player[data_frame_base$EFF<0]
+data_frame_base$Player[data_frame_base$EFF < 0]
 ```
 
     ## [1] "Patricio Garino"
 
 ``` r
-#correlations between EFF and all variables used in EFF formula 
-#correlation between EFF and Missed_FG
+# correlations between EFF and all variables used in EFF formula correlation
+# between EFF and Missed_FG
 Missed_FG <- -cor(data_frame_base$EFF, data_frame_base$Missed_FG)
 Missed_FG
 ```
@@ -253,7 +266,7 @@ Missed_FG
     ## [1] -0.7722477
 
 ``` r
-#correlation between EFF and Missed_FT 
+# correlation between EFF and Missed_FT
 Missed_FT <- -cor(data_frame_base$EFF, data_frame_base$Missed_FT)
 Missed_FT
 ```
@@ -261,7 +274,7 @@ Missed_FT
     ## [1] -0.7271456
 
 ``` r
-#correlation between EFF and PTS 
+# correlation between EFF and PTS
 PTS <- cor(data_frame_base$EFF, data_frame_base$PTS)
 PTS
 ```
@@ -269,7 +282,7 @@ PTS
     ## [1] 0.8588644
 
 ``` r
-#correlation between EFF and REB
+# correlation between EFF and REB
 REB <- cor(data_frame_base$EFF, data_frame_base$REB)
 REB
 ```
@@ -277,7 +290,7 @@ REB
     ## [1] 0.7634501
 
 ``` r
-#correlation between EFF and AST 
+# correlation between EFF and AST
 AST <- cor(data_frame_base$EFF, data_frame_base$AST)
 AST
 ```
@@ -285,7 +298,7 @@ AST
     ## [1] 0.6689232
 
 ``` r
-#correlation between EFF and STL 
+# correlation between EFF and STL
 STL <- cor(data_frame_base$EFF, data_frame_base$STL)
 STL
 ```
@@ -293,7 +306,7 @@ STL
     ## [1] 0.6957286
 
 ``` r
-#correlation between EFF and BLK 
+# correlation between EFF and BLK
 BLK <- cor(data_frame_base$EFF, data_frame_base$BLK)
 BLK
 ```
@@ -301,7 +314,7 @@ BLK
     ## [1] 0.5679571
 
 ``` r
-#correlation between EFF and TO 
+# correlation between EFF and TO
 TO <- -cor(data_frame_base$EFF, data_frame_base$TO)
 TO
 ```
@@ -309,27 +322,30 @@ TO
     ## [1] -0.8003289
 
 ``` r
-#Making a data frame and barplot with correlations 
-names <- c( "Missed_FG", "Missed_FT", "PTS", "REB", "AST", "STL", "BLK", "TO")
+# Making a data frame and barplot with correlations
+names <- c("Missed_FG", "Missed_FT", "PTS", "REB", "AST", "STL", "BLK", "TO")
 numbers <- c(Missed_FG, Missed_FT, PTS, REB, AST, STL, BLK, TO)
 dfcor_dec <- data.frame(names, numbers)
 dfcor_dec <- arrange(dfcor_dec, desc(numbers))
-barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main="Correlations between Player Stats and EFF", ylim=c(-1.0, 1.0), col=c("gray", "gray", "gray", "gray", "gray", "coral", "coral", "coral"), ylab = "EFF")
-abline(h=0)
+barplot(dfcor_dec$numbers, names.arg = dfcor_dec$names, main = "Correlations between Player Stats and EFF", 
+    ylim = c(-1, 1), col = c("gray", "gray", "gray", "gray", "gray", "coral", "coral", 
+        "coral"), ylab = "EFF")
+abline(h = 0)
 ```
 
-![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-2.png)
+![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-2.png)
 
 PART5
 =====
 
 ``` r
-#Scatterplot between Efficiency and Salary 
-plot(data_frame_base$EFF, data_frame_base$Salary, xlab="Efficiency", ylab="Salary", main= "Scatterplot of Efficiency vs. Salary") 
-lines(lowess(data_frame_base$EFF, data_frame_base$Salary), col=3, lwd=3)
+# Scatterplot between Efficiency and Salary
+plot(data_frame_base$EFF, data_frame_base$Salary, xlab = "Efficiency", ylab = "Salary", 
+    main = "Scatterplot of Efficiency vs. Salary")
+lines(lowess(data_frame_base$EFF, data_frame_base$Salary), col = 3, lwd = 3)
 ```
 
-![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
+![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
 
 ``` r
 saleffcorr <- cor(data_frame_base$EFF, data_frame_base$Salary)
@@ -341,13 +357,14 @@ saleffcorr
 ###### Based on the positive association viewed on the scatterplot and the linear correlation coefficient of 0.655624, I would say that Efficiency and Salary have a moderate to strong positive relationship to one another.
 
 ``` r
-MPG_morethan20players <- data_frame_base[data_frame_base$MPG>19, ]
+MPG_morethan20players <- data_frame_base[data_frame_base$MPG > 19, ]
 players2 <- data.frame(MPG_morethan20players)
-plot(players2$EFF, players2$Salary, main= "Efficiency vs Salary for players with 20 or more minutes of Game Time", xlab="Efficiency", ylab="Salary")
-lines(lowess(players2$EFF, players2$Salary), col=3, lwd=3)
+plot(players2$EFF, players2$Salary, main = "Efficiency vs Salary for players with 20 or more minutes of Game Time", 
+    xlab = "Efficiency", ylab = "Salary")
+lines(lowess(players2$EFF, players2$Salary), col = 3, lwd = 3)
 ```
 
-![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
+![](hw02-shivani-prabala_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
 
 ``` r
 cor_morethan20 <- cor(players2$EFF, players2$Salary)

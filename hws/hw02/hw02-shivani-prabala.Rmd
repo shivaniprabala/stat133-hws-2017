@@ -1,13 +1,18 @@
 ---
 title: "HW 02- Basics of Data Frames"
 output: github_document
+author: "Shivani Prabala"
+date: "October 2nd, 2017"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+```{r}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff= 80),tidy=TRUE)
+```
 
 
 #PART2 
