@@ -1,0 +1,84 @@
+---
+title: "HW-03: Ranking NBA Teams"
+output: github_document 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+teams <- read.csv("../data/nba2017-teams.csv")
+
+#Teams Ranked By Salary 
+#Description: This is a visual representation of the ranking of teams from highest salaries to lowest salaries. 
+
+ggplot(teams, aes(x=reorder(team, salary), y=salary)) + geom_bar(stat="identity") + labs(x="Teams", y="Salary(In Millions)", title="NBA Teams Ranked by Total Salary") + coord_flip() + geom_hline(yintercept = mean(teams$salary), colour="red")
+```
+
+```{r}
+#Teams Ranked By Points 
+#Description: This is a visual representation of the ranking of teams from highest total points to lowest total points. 
+
+ggplot(teams, aes(x=reorder(team, points), y=points)) + geom_bar(stat="identity") + labs(x="Teams", y="Total Points", title="NBA Teams Ranked by Total Points") + coord_flip() + geom_hline(yintercept = mean(teams$points), colour="red")
+```
+
+```{r}
+#Teams Ranked By Efficiency
+#Description: This is a visual representation of team ranked from highest efficiency index value to lowest efficiency value. The efficiency index is calculated using a number of factors (see R script file for furthur information). 
+
+
+ggplot(teams, aes(x=reorder(team, efficiency), y=efficiency)) + geom_bar(stat="identity") + labs(x="Teams", y="Total Efficiency", title="NBA Teams Ranked by Total Efficiency") + coord_flip() + geom_hline(yintercept = mean(teams$efficiency), colour="red")
+```
+
+```{r}
+#Principal Component Analysis 
+PCA <- prcomp(select(teams, points3, points2, free_throws, off_rebounds, def_rebounds, assists, steals, blocks, turnovers, fouls), scale.=TRUE)
+eigs <- data.frame(eigenvalue=(PCA$sdev)^2, prop= round((PCA$sdev^2)/sum(PCA$sdev^2), 6))
+eigs<- mutate(eigs, cumprop= cumsum(eigs$prop))
+eigs 
+```
+
+```{r}
+val <- data.frame(team=teams$team, PCA$x)
+
+ggplot(val, aes(x=PC1, y=PC2)) +geom_text(aes(label=val$team))
+
+#PC Interpretation 
+weights<- PCA$rotation
+weights
+
+s1 <- (100) * ((val$PC1 - min(val$PC1))/(max(val$PC1)-min(val$PC1)))
+df2 <- data.frame(team=val$team, s1)
+
+ggplot(df2, aes(x=reorder(team, s1), y=s1)) + geom_bar(stat="identity") + labs(x="Team", y="First PC(scaled from 0 to 100)", title="NBA Teams Ranked by scaled PC1") + coord_flip()
+
+```
+
+```{r}
+#Comments and Reflections: 
+# Yes, this was my first time working with such a file structure. It was confusing, but I was able to figure it out eventually. 
+
+
+#Yes, this was my first time using relative paths. They are much shorter than absolute paths so that is definitely a plus. 
+
+#No, this was not my first time using an R script.
+
+
+#PCA was hard even though I saw it in class. 
+
+
+#Figuring out the file structure wasn't too hard even though we hadn't worked with it extensively in class. 
+
+
+#No, I did it myself. 
+
+
+#Creating the horizontal barplots was the most time consuming part. 
+
+#The rankings were pretty interesting. 
+
+```
+
