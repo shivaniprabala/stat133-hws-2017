@@ -2,8 +2,8 @@
 title: <span style="color:burlywood">Post 1- Statistics 133 (Fall 2017)</span>
 author: "Shivani Prabala"
 date: 10/31/2017
-output: html_document 
-
+output: github_document
+always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
