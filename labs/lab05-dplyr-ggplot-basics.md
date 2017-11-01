@@ -172,8 +172,285 @@ player_height <- select(dat, player, height)
 -   find how to select the name, age, and team, of players with more than 10 years of experience, making 10 million dollars or less.
 -   find how to select the name, team, height, and weight, of rookie players, 20 years old, displaying only the first five occurrences (i.e. rows)
 
-Your Turn ANSWERS
------------------
+Your turn ANSWERS:
+------------------
+
+``` r
+library(dplyr)
+library(ggplot2)
+
+five_rows <- slice(dat, 1:5)
+five_rows 
+```
+
+    ## # A tibble: 5 x 15
+    ##              player  team position height weight   age experience
+    ##               <chr> <chr>    <chr>  <int>  <int> <int>      <int>
+    ## 1        Al Horford   BOS        C     82    245    30          9
+    ## 2      Amir Johnson   BOS       PF     81    240    29         11
+    ## 3     Avery Bradley   BOS       SG     74    180    26          6
+    ## 4 Demetrius Jackson   BOS       PG     73    201    22          0
+    ## 5      Gerald Green   BOS       SF     79    205    31          9
+    ## # ... with 8 more variables: college <chr>, salary <dbl>, games <int>,
+    ## #   minutes <int>, points <int>, points3 <int>, points2 <int>,
+    ## #   points1 <int>
+
+``` r
+every_five <- slice(dat, seq(10, 50, 5))
+every_five
+```
+
+    ## # A tibble: 9 x 15
+    ##             player  team position height weight   age experience
+    ##              <chr> <chr>    <chr>  <int>  <int> <int>      <int>
+    ## 1    Jonas Jerebko   BOS       PF     82    231    29          6
+    ## 2     Tyler Zeller   BOS        C     84    253    27          4
+    ## 3      Edy Tavares   CLE        C     87    260    24          1
+    ## 4       Kevin Love   CLE       PF     82    251    28          8
+    ## 5 Tristan Thompson   CLE        C     81    238    25          5
+    ## 6  DeMarre Carroll   TOR       SF     80    215    30          7
+    ## 7   Lucas Nogueira   TOR        C     84    241    24          2
+    ## 8      Serge Ibaka   TOR       PF     82    235    27          7
+    ## 9    Daniel Ochefu   WAS        C     83    245    23          0
+    ## # ... with 8 more variables: college <chr>, salary <dbl>, games <int>,
+    ## #   minutes <int>, points <int>, points3 <int>, points2 <int>,
+    ## #   points1 <int>
+
+``` r
+last_five <- slice(dat, seq(437, 441))
+last_five
+```
+
+    ## # A tibble: 5 x 15
+    ##            player  team position height weight   age experience
+    ##             <chr> <chr>    <chr>  <int>  <int> <int>      <int>
+    ## 1 Marquese Chriss   PHO       PF     82    233    19          0
+    ## 2    Ronnie Price   PHO       PG     74    190    33         11
+    ## 3     T.J. Warren   PHO       SF     80    230    23          2
+    ## 4      Tyler Ulis   PHO       PG     70    150    21          0
+    ## 5  Tyson Chandler   PHO        C     85    240    34         15
+    ## # ... with 8 more variables: college <chr>, salary <dbl>, games <int>,
+    ## #   minutes <int>, points <int>, points3 <int>, points2 <int>,
+    ## #   points1 <int>
+
+``` r
+shorter_than_70 <- filter(dat, height<70)
+shorter_than_70
+```
+
+    ##          player team position height weight age experience
+    ## 1 Isaiah Thomas  BOS       PG     69    185  27          5
+    ## 2    Kay Felder  CLE       PG     69    176  21          0
+    ##                    college  salary games minutes points points3 points2
+    ## 1 University of Washington 6587132    76    2569   2199     245     437
+    ## 2       Oakland University  543471    42     386    166       7      55
+    ##   points1
+    ## 1     590
+    ## 2      35
+
+``` r
+subset_GSWrows<- filter(dat, team== "GSW")
+subset_GSWrows
+```
+
+    ##                  player team position height weight age experience
+    ## 1        Andre Iguodala  GSW       SF     78    215  33         12
+    ## 2          Damian Jones  GSW        C     84    245  21          0
+    ## 3            David West  GSW        C     81    250  36         13
+    ## 4        Draymond Green  GSW       PF     79    230  26          4
+    ## 5             Ian Clark  GSW       SG     75    175  25          3
+    ## 6  James Michael McAdoo  GSW       PF     81    230  24          2
+    ## 7          JaVale McGee  GSW        C     84    270  29          8
+    ## 8          Kevin Durant  GSW       SF     81    240  28          9
+    ## 9          Kevon Looney  GSW        C     81    220  20          1
+    ## 10        Klay Thompson  GSW       SG     79    215  26          5
+    ## 11          Matt Barnes  GSW       SF     79    226  36         13
+    ## 12        Patrick McCaw  GSW       SG     79    185  21          0
+    ## 13     Shaun Livingston  GSW       PG     79    192  31         11
+    ## 14        Stephen Curry  GSW       PG     75    190  28          7
+    ## 15        Zaza Pachulia  GSW        C     83    270  32         13
+    ##                                  college   salary games minutes points
+    ## 1                  University of Arizona 11131368    76    1998    574
+    ## 2                  Vanderbilt University  1171560    10      85     19
+    ## 3                      Xavier University  1551659    68     854    316
+    ## 4              Michigan State University 15330435    76    2471    776
+    ## 5                     Belmont University  1015696    77    1137    527
+    ## 6           University of North Carolina   980431    52     457    147
+    ## 7             University of Nevada, Reno  1403611    77     739    472
+    ## 8          University of Texas at Austin 26540100    62    2070   1555
+    ## 9  University of California, Los Angeles  1182840    53     447    135
+    ## 10           Washington State University 16663575    78    2649   1742
+    ## 11 University of California, Los Angeles   383351    20     410    114
+    ## 12       University of Nevada, Las Vegas   543471    71    1074    282
+    ## 13                                        5782450    76    1345    389
+    ## 14                      Davidson College 12112359    79    2638   1999
+    ## 15                                        2898000    70    1268    426
+    ##    points3 points2 points1
+    ## 1       64     155      72
+    ## 2        0       8       3
+    ## 3        3     132      43
+    ## 4       81     191     151
+    ## 5       61     150      44
+    ## 6        2      60      21
+    ## 7        0     208      56
+    ## 8      117     434     336
+    ## 9        2      54      21
+    ## 10     268     376     186
+    ## 11      18      20      20
+    ## 12      41      65      29
+    ## 13       1     172      42
+    ## 14     324     351     325
+    ## 15       0     164      98
+
+``` r
+Lakers_names <- select(filter(dat, team=="LAL"), player)
+Lakers_names 
+```
+
+    ##               player
+    ## 1     Brandon Ingram
+    ## 2       Corey Brewer
+    ## 3   D'Angelo Russell
+    ## 4        David Nwaba
+    ## 5        Ivica Zubac
+    ## 6    Jordan Clarkson
+    ## 7      Julius Randle
+    ## 8    Larry Nance Jr.
+    ## 9          Luol Deng
+    ## 10 Metta World Peace
+    ## 11        Nick Young
+    ## 12       Tarik Black
+    ## 13   Thomas Robinson
+    ## 14    Timofey Mozgov
+    ## 15       Tyler Ennis
+
+``` r
+GSW_pointguards <- select(filter(dat, team=="GSW", position=="PG"), player, salary) 
+GSW_pointguards
+```
+
+    ##             player   salary
+    ## 1 Shaun Livingston  5782450
+    ## 2    Stephen Curry 12112359
+
+``` r
+players_more10_less10 <- filter(dat, experience>10, salary<10000000)
+players_more10_less10
+```
+
+    ##               player team position height weight age experience
+    ## 1      Dahntay Jones  CLE       SF     78    225  36         12
+    ## 2     Deron Williams  CLE       PG     75    200  32         11
+    ## 3        James Jones  CLE       SF     80    218  36         13
+    ## 4        Kyle Korver  CLE       SG     79    212  35         13
+    ## 5  Richard Jefferson  CLE       SF     79    233  36         15
+    ## 6      Jose Calderon  ATL       PG     75    200  35         11
+    ## 7     Kris Humphries  ATL       PF     81    235  31         12
+    ## 8      Mike Dunleavy  ATL       SF     81    230  36         14
+    ## 9        Jason Terry  MIL       SG     74    185  39         17
+    ## 10        C.J. Miles  IND       SF     78    225  29         11
+    ## 11     Udonis Haslem  MIA        C     80    235  36         13
+    ## 12        Beno Udrih  DET       PG     75    205  34         12
+    ## 13        David West  GSW        C     81    250  36         13
+    ## 14       Matt Barnes  GSW       SF     79    226  36         13
+    ## 15  Shaun Livingston  GSW       PG     79    192  31         11
+    ## 16     Zaza Pachulia  GSW        C     83    270  32         13
+    ## 17         David Lee  SAS       PF     81    245  33         11
+    ## 18      Lou Williams  HOU       SG     73    175  30         11
+    ## 19      Trevor Ariza  HOU       SF     80    215  31         12
+    ## 20      Brandon Bass  LAC       PF     80    250  31         11
+    ## 21       Paul Pierce  LAC       SF     79    235  39         18
+    ## 22    Raymond Felton  LAC       PG     73    205  32         11
+    ## 23        Boris Diaw  UTA       PF     80    250  34         13
+    ## 24     Nick Collison  OKC       PF     82    255  36         12
+    ## 25        Tony Allen  MEM       SG     76    213  35         12
+    ## 26      Vince Carter  MEM       SF     78    220  40         18
+    ## 27     Jameer Nelson  DEN       PG     72    190  34         12
+    ## 28       Mike Miller  DEN       SF     80    218  36         16
+    ## 29      Devin Harris  DAL       PG     75    192  33         12
+    ## 30 Metta World Peace  LAL       SF     78    260  37         16
+    ## 31   Leandro Barbosa  PHO       SG     75    194  34         13
+    ## 32      Ronnie Price  PHO       PG     74    190  33         11
+    ##                                       college  salary games minutes points
+    ## 1                             Duke University   18255     1      12      9
+    ## 2  University of Illinois at Urbana-Champaign  259626    24     486    179
+    ## 3                         University of Miami 1551659    48     381    132
+    ## 4                        Creighton University 5239437    35     859    373
+    ## 5                       University of Arizona 2500000    79    1614    448
+    ## 6                                              392478    17     247     61
+    ## 7                     University of Minnesota 4000000    56     689    257
+    ## 8                             Duke University 4837500    30     475    169
+    ## 9                       University of Arizona 1551659    74    1365    307
+    ## 10                                            4583450    76    1776    815
+    ## 11                      University of Florida 4000000    17     130     31
+    ## 12                                            1551659    39     560    227
+    ## 13                          Xavier University 1551659    68     854    316
+    ## 14      University of California, Los Angeles  383351    20     410    114
+    ## 15                                            5782450    76    1345    389
+    ## 16                                            2898000    70    1268    426
+    ## 17                      University of Florida 1551659    79    1477    576
+    ## 18                                            7000000    23     591    343
+    ## 19      University of California, Los Angeles 7806971    80    2773    936
+    ## 20                 Louisiana State University 1551659    52     577    292
+    ## 21                       University of Kansas 3500000    25     277     81
+    ## 22               University of North Carolina 1551659    80    1700    538
+    ## 23                                            7000000    73    1283    338
+    ## 24                       University of Kansas 3750000    20     128     33
+    ## 25                  Oklahoma State University 5505618    71    1914    643
+    ## 26               University of North Carolina 4264057    73    1799    586
+    ## 27                  Saint Joseph's University 4540525    75    2045    687
+    ## 28                      University of Florida 3500000    20     151     28
+    ## 29                    University of Wisconsin 4228000    65    1087    437
+    ## 30                      St. John's University 1551659    25     160     57
+    ## 31                                            4000000    67     963    419
+    ## 32                  Utah Valley State College  282595    14     134     14
+    ##    points3 points2 points1
+    ## 1        0       3       3
+    ## 2       22      46      21
+    ## 3       31      13      13
+    ## 4       97      34      14
+    ## 5       62      91      80
+    ## 6        8      15       7
+    ## 7       19      68      64
+    ## 8       33      24      22
+    ## 9       73      32      24
+    ## 10     169     112      84
+    ## 11       0      11       9
+    ## 12      11      81      32
+    ## 13       3     132      43
+    ## 14      18      20      20
+    ## 15       1     172      42
+    ## 16       0     164      98
+    ## 17       0     248      80
+    ## 18      41      61      98
+    ## 19     191     135      93
+    ## 20       1     106      77
+    ## 21      15      13      10
+    ## 22      46     175      50
+    ## 23      20     126      26
+    ## 24       0      14       5
+    ## 25      15     259      80
+    ## 26     112      81      88
+    ## 27     106     162      45
+    ## 28       8       1       2
+    ## 29      58      78     107
+    ## 30       9      10      10
+    ## 31      35     137      40
+    ## 32       3       1       3
+
+``` r
+rookie_20_fiverows <- slice(select(filter(dat, experience==0, age==20), player, team, height, weight), 1:5)
+rookie_20_fiverows
+```
+
+    ## # A tibble: 5 x 4
+    ##              player  team height weight
+    ##               <chr> <chr>  <int>  <int>
+    ## 1      Jaylen Brown   BOS     79    225
+    ## 2    Henry Ellenson   DET     83    245
+    ## 3 Stephen Zimmerman   ORL     84    240
+    ## 4   Dejounte Murray   SAS     77    170
+    ## 5    Chinanu Onuaku   HOU     82    245
 
 ------------------------------------------------------------------------
 
@@ -312,6 +589,110 @@ arrange(gsw, height, weight)
 
 -   create a data frame `gsw_mpg` of GSW players, that contains variables for player name, experience, and `min_per_game` (minutes per game), sorted by `min_per_game` (in descending order)
 
+Your Turn ANSWERS:
+==================
+
+``` r
+gsw <- mutate(gsw, product= height * weight)
+gsw
+```
+
+    ## # A tibble: 5 x 4
+    ##           player height weight product
+    ##            <chr>  <int>  <int>   <int>
+    ## 1 Draymond Green     79    230   18170
+    ## 2   Kevin Durant     81    240   19440
+    ## 3  Klay Thompson     79    215   16985
+    ## 4  Stephen Curry     75    190   14250
+    ## 5  Zaza Pachulia     83    270   22410
+
+``` r
+gsw3<- mutate(gsw, ht_log= log(height), wt_log=log(weight))
+gsw3
+```
+
+    ## # A tibble: 5 x 6
+    ##           player height weight product   ht_log   wt_log
+    ##            <chr>  <int>  <int>   <int>    <dbl>    <dbl>
+    ## 1 Draymond Green     79    230   18170 4.369448 5.438079
+    ## 2   Kevin Durant     81    240   19440 4.394449 5.480639
+    ## 3  Klay Thompson     79    215   16985 4.369448 5.370638
+    ## 4  Stephen Curry     75    190   14250 4.317488 5.247024
+    ## 5  Zaza Pachulia     83    270   22410 4.418841 5.598422
+
+``` r
+gsw_heightless71 <- arrange(filter(dat, height<71), height)
+gsw_heightless71
+```
+
+    ##          player team position height weight age experience
+    ## 1 Isaiah Thomas  BOS       PG     69    185  27          5
+    ## 2    Kay Felder  CLE       PG     69    176  21          0
+    ## 3    Tyler Ulis  PHO       PG     70    150  21          0
+    ##                    college  salary games minutes points points3 points2
+    ## 1 University of Washington 6587132    76    2569   2199     245     437
+    ## 2       Oakland University  543471    42     386    166       7      55
+    ## 3   University of Kentucky  918369    61    1123    444      21     163
+    ##   points1
+    ## 1     590
+    ## 2      35
+    ## 3      55
+
+``` r
+highestpaid_5 <- slice(select(arrange(dat, salary), player, team, salary), 437:441)
+highestpaid_5
+```
+
+    ## # A tibble: 5 x 3
+    ##              player  team   salary
+    ##               <chr> <chr>    <dbl>
+    ## 1      Kevin Durant   GSW 26540100
+    ## 2      James Harden   HOU 26540100
+    ## 3 Russell Westbrook   OKC 26540100
+    ## 4       Mike Conley   MEM 26540100
+    ## 5      LeBron James   CLE 30963450
+
+``` r
+highestpaid_10 <- slice(select(arrange(dat, salary), player, team, points3), 432:441)
+highestpaid_10
+```
+
+    ## # A tibble: 10 x 3
+    ##               player  team points3
+    ##                <chr> <chr>   <int>
+    ##  1    Damian Lillard   POR     214
+    ##  2   Carmelo Anthony   NYK     151
+    ##  3     Dirk Nowitzki   DAL      79
+    ##  4        Al Horford   BOS      86
+    ##  5     DeMar DeRozan   TOR      33
+    ##  6      Kevin Durant   GSW     117
+    ##  7      James Harden   HOU     262
+    ##  8 Russell Westbrook   OKC     200
+    ##  9       Mike Conley   MEM     171
+    ## 10      LeBron James   CLE     124
+
+``` r
+gsw_mpg <- select(filter(mutate(dat, min_per_game= minutes/games), team=='GSW'), player, experience, min_per_game)
+gsw_mpg 
+```
+
+    ##                  player experience min_per_game
+    ## 1        Andre Iguodala         12    26.289474
+    ## 2          Damian Jones          0     8.500000
+    ## 3            David West         13    12.558824
+    ## 4        Draymond Green          4    32.513158
+    ## 5             Ian Clark          3    14.766234
+    ## 6  James Michael McAdoo          2     8.788462
+    ## 7          JaVale McGee          8     9.597403
+    ## 8          Kevin Durant          9    33.387097
+    ## 9          Kevon Looney          1     8.433962
+    ## 10        Klay Thompson          5    33.961538
+    ## 11          Matt Barnes         13    20.500000
+    ## 12        Patrick McCaw          0    15.126761
+    ## 13     Shaun Livingston         11    17.697368
+    ## 14        Stephen Curry          7    33.392405
+    ## 15        Zaza Pachulia         13    18.114286
+
 ------------------------------------------------------------------------
 
 Summarizing values with `summarise()`
@@ -448,6 +829,55 @@ arrange(
 
 -   obtain the mean and standard deviation of `age`, for Power Forwards, with 5 and 10 years (including) years of experience.
 
+Your turn ANSWERS:
+==================
+
+``` r
+summarize(dat, max= max(height))
+```
+
+    ##   max
+    ## 1  87
+
+``` r
+summarize(dat, sd= sd(points3)) 
+```
+
+    ##        sd
+    ## 1 55.9721
+
+``` r
+summarize(group_by(dat, team), med= median(points3))
+```
+
+    ## # A tibble: 30 x 2
+    ##     team   med
+    ##    <chr> <dbl>
+    ##  1   ATL  32.5
+    ##  2   BOS  46.0
+    ##  3   BRK  44.0
+    ##  4   CHI  32.0
+    ##  5   CHO  17.0
+    ##  6   CLE  62.0
+    ##  7   DAL  53.0
+    ##  8   DEN  53.0
+    ##  9   DET  28.0
+    ## 10   GSW  18.0
+    ## # ... with 20 more rows
+
+``` r
+slice(arrange(summarize(group_by(dat, team), meanpoints3= mean(points3)), meanpoints3), 1:5)
+```
+
+    ## # A tibble: 5 x 2
+    ##    team meanpoints3
+    ##   <chr>       <dbl>
+    ## 1   NOP    36.64286
+    ## 2   SAC    37.20000
+    ## 3   PHO    37.60000
+    ## 4   CHI    37.66667
+    ## 5   LAL    39.46667
+
 ------------------------------------------------------------------------
 
 First contact with `ggplot()`
@@ -472,7 +902,7 @@ ggplot(data = dat) +
   geom_point(aes(x = points, y = salary))
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png)
 
 -   `ggplot()` creates an object of class `"ggplot"`
 -   the main input for `ggplot()` is `data` which must be a data frame
@@ -496,7 +926,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_point(aes(color = position))
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-25-1.png)
 
 Maybe you wan to modify the size of the dots in terms of `points3`:
 
@@ -506,7 +936,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_point(aes(color = position, size = points3))
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
 
 To add some transparency effect to the dots, you can use the `alpha` parameter
 
@@ -516,7 +946,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_point(aes(color = position, size = points3), alpha = 0.7)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-25-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
 
 Notice that `alpha` was specified outside `aes()`. This is because we are not using any column for the `alpha` transparency values.
 
@@ -546,7 +976,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   facet_wrap(~ position)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-28-1.png)
 
 The other faceting function is `facet_grid()`, which allows you to control the layout of the facets (by rows, by columns, etc)
 
@@ -558,7 +988,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_smooth(method = loess)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-29-1.png)
 
 ``` r
 # scatterplot by position
@@ -568,7 +998,7 @@ ggplot(data = dat, aes(x = points, y = salary)) +
   geom_smooth(method = loess)
 ```
 
-![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-2.png)
+![](lab05-dplyr-ggplot-basics_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-29-2.png)
 
 ### Your turn:
 

@@ -1,4 +1,4 @@
-Lab 6: Simple Conditionals
+Lab 7: Simple Conditionals
 ================
 Gaston Sanchez
 
@@ -19,23 +19,21 @@ Write R code that will "squish" a number into the interval \[0, 100\], so that a
 z <- 100*pi
 # Fill in the following if-else statements. You may (or may not) 
 # have to add or subtract else if or else statements.
-if (TRUE) { # Replace TRUE with a condition.
-  
-} else if (TRUE) { # Replace TRUE with a condition.
-  
+if (z<0) { # Replace TRUE with a condition.
+  z=0 
+} else if (z>100) { # Replace TRUE with a condition.
+  z=100
 } else {
-  
+  return 
 }
 ```
-
-    ## NULL
 
 ### Multiple If's
 
 A common situation involves working with multiple conditions at the same time. You can chain multiple if-else statements:
 
 ``` r
-y <- 1 # Change this value!
+y <- -5 # Change this value!
 
 if (y > 0) {
   print("positive")
@@ -46,7 +44,7 @@ if (y > 0) {
 }
 ```
 
-    ## [1] "positive"
+    ## [1] "negative"
 
 Even number
 -----------
@@ -80,6 +78,12 @@ Odd number
 ----------
 
 Use your function `is_even()` to write a function `is_odd()` that determines if a number is odd (i.e. not a multiple of 2). If a number is odd, the output should be `TRUE`; if a number is even the output should be `FALSE`; if the input is not a number the output should be `NA`
+
+``` r
+is_odd <- function(x) {
+  !is_even(x)
+}
+```
 
 For example:
 
@@ -153,7 +157,7 @@ In R, you can get rid of many of the braces like this:
 
 ``` r
 # Convert the day of the week into a number.
-day <- "Tuesday" # Change this value!
+day <- "Friday" # Change this value!
 
 if (day == 'Sunday') {
   num_day <- 1
@@ -174,13 +178,13 @@ if (day == 'Sunday') {
 num_day
 ```
 
-    ## [1] 3
+    ## [1] 6
 
 But still we have too many if's, and there's a lot of repetition in the code. If you find yourself using many if-else statements with identical structure for slightly different cases, you may want to consider a **switch** statement instead:
 
 ``` r
 # Convert the day of the week into a number.
-day <- "Tuesday" # Change this value!
+day <- "Friday" # Change this value!
 
 switch(day, # The expression to be evaluated.
   Sunday = 1,
@@ -193,13 +197,13 @@ switch(day, # The expression to be evaluated.
   NA) # an (optional) default value if there are no matches
 ```
 
-    ## [1] 3
+    ## [1] 6
 
 Switch statements can also accept integer arguments, which will act as indices to choose a corresponding element:
 
 ``` r
 # Convert a number into a day of the week.
-day_num <- 3 # Change this value!
+day_num <- 4 # Change this value!
 
 switch(day_num,
   "Sunday",
@@ -211,7 +215,7 @@ switch(day_num,
   "Saturday")
 ```
 
-    ## [1] "Tuesday"
+    ## [1] "Wednesday"
 
 Converting Miles to other units
 -------------------------------
@@ -233,6 +237,28 @@ Write the following five functions for each type of conversion. Each function mu
 -   `miles2yards()`
 -   `miles2meters()`
 -   `miles2kms()`
+
+``` r
+miles2inches <- function(x = 1) {
+  x * 63360
+}
+
+miles2feet <- function(x = 1) {
+  x * 5280
+}
+
+miles2yards <- function(x = 1) {
+  x * 1760
+}
+
+miles2meters <- function(x = 1) {
+  x / 0.00062137
+}
+
+miles2kms <- function(x = 1) {
+  x / 0.62137
+}
+```
 
 For example:
 
@@ -273,11 +299,18 @@ Using switch()
 
 Create a function `convert()` that converts miles into the specified units. Use `switch()` and the previously defined functions---`miles2inches()`, `miles2feet()`, ..., `miles2kms`---to define `convert()`. Use two arguments: `x` and `to`, like this:
 
-``` r
-convert(40, to = "in")
-```
-
 By default, `to = "km"`, but it can take values such as `"in"`, `"ft"`, `"yd"`, or `"m"`.
+
+``` r
+convert <- function(x, to = "km") {
+  switch(to,
+         "in" = miles2inches(x),
+         "ft" = miles2feet(x),
+         "yd" = miles2yards(x),
+         "m" = miles2meters(x),
+         "km" = miles2kms(x))
+}
+```
 
 For instance:
 
@@ -295,8 +328,15 @@ One more swtich
 Write a switch statement to determine if a given lowercase letter is a vowel. Assume that "y" is not a vowel.
 
 ``` r
-letter <- "e" # Change this value!
+letter <- "f" # Change this value!
 
 switch(letter,
-  a = "vowel") # Modify as necessary.
+  a = "vowel",
+  e= "vowel",
+  i="vowel",
+  o= "vowel",
+  u= "vowel",
+  'not a vowel') # Modify as necessary.
 ```
+
+    ## [1] "not a vowel"

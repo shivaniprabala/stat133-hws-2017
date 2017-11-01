@@ -1,5 +1,5 @@
 ---
-title: "Lab 6: Simple Conditionals"
+title: "Lab 7: Simple Conditionals"
 subtitle: "Stat 133, Fall 2017"
 author: "Gaston Sanchez"
 output: github_document
@@ -26,12 +26,12 @@ by 100.
 z <- 100*pi
 # Fill in the following if-else statements. You may (or may not) 
 # have to add or subtract else if or else statements.
-if (TRUE) { # Replace TRUE with a condition.
-  
-} else if (TRUE) { # Replace TRUE with a condition.
-  
+if (z<0) { # Replace TRUE with a condition.
+  z=0 
+} else if (z>100) { # Replace TRUE with a condition.
+  z=100
 } else {
-  
+  return 
 }
 ```
 
@@ -41,7 +41,7 @@ A common situation involves working with multiple conditions at the same time.
 You can chain multiple if-else statements:
 
 ```{r}
-y <- 1 # Change this value!
+y <- -5 # Change this value!
 
 if (y > 0) {
   print("positive")
@@ -88,7 +88,7 @@ Use your function `is_even()` to write a function `is_odd()` that determines
 if a number is odd (i.e. not a multiple of 2). If a number is odd, the output 
 should be `TRUE`; if a number is even the output should be `FALSE`; if the 
 input is not a number the output should be `NA`
-```{r, echo = FALSE}
+```{r}
 is_odd <- function(x) {
   !is_even(x)
 }
@@ -153,7 +153,7 @@ In R, you can get rid of many of the braces like this:
 
 ```{r}
 # Convert the day of the week into a number.
-day <- "Tuesday" # Change this value!
+day <- "Friday" # Change this value!
 
 if (day == 'Sunday') {
   num_day <- 1
@@ -181,7 +181,7 @@ instead:
 
 ```{r}
 # Convert the day of the week into a number.
-day <- "Tuesday" # Change this value!
+day <- "Friday" # Change this value!
 
 switch(day, # The expression to be evaluated.
   Sunday = 1,
@@ -199,7 +199,7 @@ to choose a corresponding element:
 
 ```{r}
 # Convert a number into a day of the week.
-day_num <- 3 # Change this value!
+day_num <- 4 # Change this value!
 
 switch(day_num,
   "Sunday",
@@ -232,7 +232,7 @@ must take one argument `x` with default value: `x = 1`.
 - `miles2meters()`
 - `miles2kms()`
 
-```{r, echo = FALSE}
+```{r}
 miles2inches <- function(x = 1) {
   x * 63360
 }
@@ -271,12 +271,9 @@ Create a function `convert()` that converts miles into the specified units.
 Use `switch()` and the previously defined functions---`miles2inches()`, 
 `miles2feet()`, ..., `miles2kms`---to define `convert()`. Use two arguments: 
 `x` and `to`, like this:
-```{r, eval=FALSE}
-convert(40, to = "in")
-```
 
 By default, `to = "km"`, but it can take values such as `"in"`, `"ft"`, `"yd"`, or `"m"`.
-```{r echo=FALSE}
+```{r}
 convert <- function(x, to = "km") {
   switch(to,
          "in" = miles2inches(x),
@@ -302,9 +299,14 @@ convert(3, "km")
 Write a switch statement to determine if a given lowercase letter is a vowel. 
 Assume that "y" is not a vowel.
 ```{r}
-letter <- "e" # Change this value!
+letter <- "f" # Change this value!
 
 switch(letter,
-  a = "vowel") # Modify as necessary.
+  a = "vowel",
+  e= "vowel",
+  i="vowel",
+  o= "vowel",
+  u= "vowel",
+  'not a vowel') # Modify as necessary.
 ```
 
