@@ -1,0 +1,44 @@
+$minimum
+[1] 18
+
+$percent10
+[1] 53
+
+$quartile1
+[1] 69
+
+$median
+[1] 80
+
+$mean
+[1] 75.91377
+
+$quartile3
+[1] 87
+
+$percent90
+[1] 93.7
+
+$maximum
+[1] 100
+
+$range
+[1] 82
+
+$stdev
+[1] 15.8822
+
+$missing
+[1] 0
+
+  
+ minimum   : 1.0000  
+ percent10 : 1.9000  
+ quartile1 : 3.2500  
+ median    : 5.5000  
+ quartile3 : 7.7500  
+ percent90 : 9.1000  
+ maximum   : 10.0000  
+ range     : 9.0000  
+ stdev     : 3.872983  
+ missing   : 1.0000
